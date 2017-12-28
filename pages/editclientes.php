@@ -1,4 +1,4 @@
-<?php 
+<?php
 $id = $_REQUEST["id"];
 include "conexion.php";
 $result = $conexion->query("select * from clientes where idclientes=" . $id);
@@ -24,7 +24,7 @@ if ($result) {
                 }
           }
     }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +34,7 @@ if ($result) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+
     <title>Super Market | </title>
 
     <!-- Bootstrap -->
@@ -69,7 +69,7 @@ if ($result) {
             document.getElementById('apellidoCliente').value=="" ||
             document.getElementById('duiCliente').value=="" ||
             document.getElementById('direccionCliente').value=="" ||
-            document.getElementById('telefonoCliente').value=="" ||           
+            document.getElementById('telefonoCliente').value=="" ||
             document.getElementById('usuarioCliente').value=="" ||
             document.getElementById('contraseñaCliente').value=="" ||
             document.getElementById('latitud').value=="" ||
@@ -196,7 +196,7 @@ if ($result) {
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Modificar <small>Datos del cliente.</small></h2>
-                    
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -258,13 +258,13 @@ if ($result) {
                           <input type="file" class="form-text" id="imagen" name="imagen" accept="image/jpg,image/png,image/jpeg">
                         </div>
                       </div>
-                     
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                           <button type="button" class="btn btn-primary" onclick="verificar()">Modificar</button>
                           <button class="btn btn-primary" type="reset" onclick="retornar()">Cancelar</button>
-                          
+
                         </div>
                       </div>
 
@@ -273,12 +273,12 @@ if ($result) {
                 </div>
               </div>
  <!-- DIV PARA PONER EL MAPA PARA CLIENTES-->
-            
+
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>MAPA <small>Mapa cliente.</small></h2>
-                    
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -334,7 +334,7 @@ if ($result) {
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+
   </body>
 </html>
 
@@ -360,7 +360,7 @@ $tipoUsuario="Cliente";
 if ($bandera == "add") {
   if($_FILES['imagen']['name']==null){//comparamos si ya se subio una imagen
     msg("Modificara solo usuario");
-        $consulta  = "UPDATE usuarios set idusuario='" . $usuarioCliente . "',contrasena='" . $contrasenaCliente . "' where idusuario='" . $usuarioAnterior . "'";       
+        $consulta  = "UPDATE usuarios set idusuario='" . $usuarioCliente . "',contrasena='" . $contrasenaCliente . "' where idusuario='" . $usuarioAnterior . "'";
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito Usuario");
@@ -368,7 +368,7 @@ if ($bandera == "add") {
             msg("No Exito Usuario");
         }
 
-        $consultac  = "UPDATE clientes set duiclientes='" . $duiCliente . "',nombreclientes='" . $nombreCliente . "',apellidoclientes='" . $apellidoCliente . "',direccionclientes='" . $direccionCliente . "',latitud='" . $latitud . "',longitud='" . $longitud . "',telefonoclientes='" . $telefonoCliente . "' where idclientes='" . $baccion . "'";       
+        $consultac  = "UPDATE clientes set duiclientes='" . $duiCliente . "',nombreclientes='" . $nombreCliente . "',apellidoclientes='" . $apellidoCliente . "',direccionclientes='" . $direccionCliente . "',latitud='" . $latitud . "',longitud='" . $longitud . "',telefonoclientes='" . $telefonoCliente . "' where idclientes='" . $baccion . "'";
         $resultado = $conexion->query($consultac);
         if ($resultado) {
             msg("Exito Cliente");
@@ -390,7 +390,7 @@ if ($bandera == "add") {
         //escapar los caracteres
         $data      = mysqli_real_escape_string($conexion, $data);
         $consulta  = "UPDATE usuarios set idusuario='" . $usuarioCliente . "',contrasena='" . $contrasenaCliente . "' where idusuario='" . $usuarioAnterior . "'";
-        
+
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito Usuario");
