@@ -24,7 +24,7 @@ if ($result) {
                 }
           }
     }
-
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -201,11 +201,15 @@ if ($result) {
                   </div>
                   <div class="x_content">
                     <br />
+
                     <form class="form-horizontal form-label-left input_mask" name="super" id="super" action="" method="post" enctype="multipart/form-data">
                       <!-- AUXILIARES -->
 <input type="hidden" name="bandera" id="bandera">
 <input type="hidden" name="baccion" id="baccion" value="<?php echo $idclienteR;?>">
 <input type="hidden" name="usuarioAnterior" id="usuarioAnterior" value="<?php echo $idusuarioR;?>">
+
+
+
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left" id="usuarioCliente" name="usuarioCliente" placeholder="Usuario" value="<?php echo $idusuarioR;?>">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
@@ -257,6 +261,11 @@ if ($result) {
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="file" class="form-text" id="imagen" name="imagen" accept="image/jpg,image/png,image/jpeg">
                         </div>
+                      </div>
+                      <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback" align="center" >
+                        <?php
+                          echo "<img src='imagenes.php?id=" . $idclienteR . "&tipo=cliente' width=200 height=180 align='center' style='margin-top:30px;'> ";
+                         ?>
                       </div>
 
                       <div class="ln_solid"></div>
