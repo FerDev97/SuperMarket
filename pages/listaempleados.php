@@ -226,8 +226,6 @@
 
                   }
                 }
-
-
                          echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=modificar(" . $fila->idempleados . ",'" . $fila->idusuario . "',1);><i class='fa fa-edit'></i>
                           </button></td>";
                         echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick='llamarPaginaMapa(" . $fila->latitud . "," . $fila->longitud . ")'>
