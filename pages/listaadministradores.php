@@ -33,7 +33,7 @@
           var url="/supermarket/pages/verMapa.php?lat="+lat+"&lon="+lon;
           window.open(url,"Nuevo","alwaysRaised=no");
         }
-        
+
         function modificar(ida,idu)
         {
           document.getElementById('bandera').value='enviar';
@@ -49,7 +49,7 @@
             if (confirm("!!Advertencia!! Desea Desactivar Este Registro?")) {
             document.getElementById('bandera').value='desactivar';
             document.getElementById('baccion').value=id;
-           
+
             document.supermarket.submit();
           }else
           {
@@ -65,7 +65,7 @@
             alert("No entra");
           }
           }
-          
+
 
         }
     </script>
@@ -155,8 +155,8 @@
         <!-- page content -->
       <form id="supermarket" name="supermarket" action="" method="post">
       <input type="hidden" name="bandera" id="bandera">
-      <input type="hidden" name="baccion" id="baccion">  
-      <input type="hidden" name="user" id="user">  
+      <input type="hidden" name="baccion" id="baccion">
+      <input type="hidden" name="user" id="user">
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
@@ -169,12 +169,12 @@
             <div class="clearfix"></div>
 
             <div class="row">
-              
+
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Administradores <small>Listado</small></h2>
-                    
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -184,35 +184,35 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                                                 
-                          
+
+
                           <th>Nombre</th>
-                          <th>Direccion</th>                         
+                          <th>Direccion</th>
                           <th>Usuario</th>
                           <th>Estado</th>
-                          <th>Foto</th>
-                          <th>Activar/Desactivar</th>    
-                          <th>Modificar</th>       
-                          <th>Ubicacion</th>                
+
+                          <th>Activar/Desactivar</th>
+                          <th>Modificar</th>
+                          <th>Ubicacion</th>
                         </tr>
                       </thead>
-                      <tbody>                      
-                        <?php 
+                      <tbody>
+                        <?php
                       include 'conexion.php';
                       $result = $conexion->query("select * from administradores");
                       if ($result) {
                         while ($fila = $result->fetch_object()) {
                           echo "<tr>";
                           $user=$fila->idusuario;
-                          
-                          
-                          
 
-                          
+
+
+
+
                           echo "<td>".$fila->nombreadministradores."</td>";
                           echo "<td>".$fila->direccion."</td>";
-                          
-                
+
+
 
                 echo "<td>".$user."</td>";
 
@@ -222,15 +222,15 @@
                   while ($fila2 = $result2->fetch_object()) {
                     if ($fila2->estado==1) {
                        echo "<td>Activo</td>";
-                        echo "<td><img src='imagenes.php?id=" . $fila->idadministradores . "&tipo=administrador' width=100 height=180></td>";
-                  
+                        //echo "<td><img src='imagenes.php?id=" . $fila->idadministradores . "&tipo=administrador' width=100 height=180></td>";
+
                        echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $fila->idadministradores . ",'" . $fila->idusuario . "',1);><i class='fa fa-remove'></i>
                           </button></td>";
                     }else
                     {
                        echo "<td>Inactivo</td>";
-                       echo "<td><img src='imagenes.php?id=" . $fila->idadministradores . "&tipo=administrador' width=100 height=180></td>";
-                  
+                       //echo "<td><img src='imagenes.php?id=" . $fila->idadministradores . "&tipo=administrador' width=100 height=180></td>";
+
                        echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $fila->idadministradores . ",'" . $fila->idusuario . "',2);><i class='fa fa-check'></i>
                           </button></td>";
                     }
@@ -238,7 +238,7 @@
                   }
                 }
 
-                       
+
                          echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=modificar(" . $fila->idadministradores . ",'" . $fila->idusuario . "',1);><i class='fa fa-edit'></i>
                           </button></td>";
                         echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick='llamarPaginaMapa(" . $fila->latitud . "," . $fila->longitud . ")'>
@@ -247,7 +247,7 @@
                           echo "</tr>";
                            }
                       }
-                       ?> 
+                       ?>
                       </tbody>
                     </table>
                   </div>

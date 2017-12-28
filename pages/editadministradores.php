@@ -1,4 +1,4 @@
-<?php 
+<?php
 $id = $_REQUEST["id"];
 include "conexion.php";
 $result = $conexion->query("select * from administradores where idadministradores=" . $id);
@@ -33,7 +33,7 @@ if ($result) {
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+
     <title>Super Market | </title>
 
     <!-- Bootstrap -->
@@ -67,7 +67,7 @@ if ($result) {
           if(document.getElementById('nombreAdministrador').value=="" ||
             document.getElementById('apellidoAdministrador').value=="" ||
             document.getElementById('direccionAdministrador').value=="" ||
-            document.getElementById('telefonoAdministrador').value=="" ||           
+            document.getElementById('telefonoAdministrador').value=="" ||
             document.getElementById('usuarioAdministrador').value=="" ||
             document.getElementById('contraseñaAdministrador').value=="" ||
             document.getElementById('latitud').value=="" ||
@@ -194,7 +194,7 @@ if ($result) {
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Modificar <small>Datos del Administrador.</small></h2>
-                    
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -244,20 +244,25 @@ if ($result) {
                         <span class="fa fa-compass form-control-feedback right" aria-hidden="true"></span>
                       </div>
 
-                      
+
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="file" class="form-text" id="imagen" name="imagen" accept="image/jpg,image/png,image/jpeg">
                         </div>
                       </div>
-                     
+                      <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback" align="center" >
+                        <?php
+                          echo "<img src='imagenes.php?id=" . $idadministradoresR . "&tipo=administrador' width=200 height=180 align='center' style='margin-top:30px;'> ";
+                         ?>
+                      </div>
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                           <button type="button" class="btn btn-primary" onclick="verificar()">Modificar</button>
                           <button class="btn btn-primary" type="reset" onclick="retornar()">Cancelar</button>
-                          
+
                         </div>
                       </div>
 
@@ -266,12 +271,12 @@ if ($result) {
                 </div>
               </div>
  <!-- DIV PARA PONER EL MAPA PARA administradores-->
-            
+
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>MAPA <small>Mapa Administrador.</small></h2>
-                    
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -327,7 +332,7 @@ if ($result) {
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+
   </body>
 </html>
 
@@ -353,7 +358,7 @@ if ($bandera == "add") {
   if($_FILES['imagen']['name']==null){
     msg("Modificara solo usuario");
         $consulta  = "UPDATE usuarios set idusuario='" . $usuarioAdministrador . "',contrasena='" . $contrasenaAdministrador . "' where idusuario='" . $usuarioAnterior . "'";
-        
+
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito Usuario");
@@ -361,7 +366,7 @@ if ($bandera == "add") {
             msg("No Exito Usuario");
         }
 
-        $consultae  = "UPDATE administradores set nombreadministradores='" . $nombreAdministrador . "',apellidoadministradores='" . $apellidoAdministrador . "',direccion='" . $direccionAdministrador . "',latitud='" . $latitud . "',longitud='" . $longitud . "',telefono='" . $telefonoAdministrador . "' where idadministradores='" . $baccion . "'";       
+        $consultae  = "UPDATE administradores set nombreadministradores='" . $nombreAdministrador . "',apellidoadministradores='" . $apellidoAdministrador . "',direccion='" . $direccionAdministrador . "',latitud='" . $latitud . "',longitud='" . $longitud . "',telefono='" . $telefonoAdministrador . "' where idadministradores='" . $baccion . "'";
         $resultado = $conexion->query($consultae);
         if ($resultado) {
             msg("Exito Administrador");
@@ -383,7 +388,7 @@ if ($bandera == "add") {
         //escapar los caracteres
         $data      = mysqli_real_escape_string($conexion, $data);
         $consulta  = "UPDATE usuarios set idusuario='" . $usuarioAdministrador . "',contrasena='" . $contrasenaAdministrador . "' where idusuario='" . $usuarioAnterior . "'";
-        
+
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito Usuario");

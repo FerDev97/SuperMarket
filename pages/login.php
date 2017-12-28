@@ -52,7 +52,6 @@
 
                 <div class="clearfix"></div>
                 <br />
-
                 <div>
                   <h1><i class="fa fa-star"></i> SuperMarket </h1>
                     Super Market fue hecho por: <a href="">Fernando Y Jessica</a>
