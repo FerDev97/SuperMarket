@@ -11,7 +11,6 @@
                     </ul>
                   </li>
 
-
                   <li><a><i class="fa fa-user"></i> Clientes <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="clientes.php">Nuevo</a></li>
@@ -23,6 +22,20 @@
                     <ul class="nav child_menu">
                       <li><a href="empleados.php">Nuevo</a></li>
                       <li><a href="listaempleados.php">Lista</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-user"></i> Productos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="productos.php">Nuevo</a></li>
+                      <li><a href="listaproductos.php">Lista</a></li>
+                    </ul>
+                  </li>
+
+                  <li><a><i class="fa fa-user"></i> Proveedores <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="proveedores.php">Nuevo</a></li>
+                      <li><a href="listaproveedores.php">Lista</a></li>
                     </ul>
                   </li>
 

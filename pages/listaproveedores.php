@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Empleados</title>
+    <title>Proveedores</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -34,22 +34,21 @@
           window.open(url,"Nuevo","alwaysRaised=no");
         }
 
-        function modificar(ide,idu)
+        function modificar(idp)
         {
           document.getElementById('bandera').value='enviar';
-          document.getElementById('baccion').value=ide;
-          document.getElementById('user').value=idu;
+          document.getElementById('baccion').value=idp;
+
          document.supermarket.submit();
         }
 
 
-        function confirmar(ide,id,op)
+        function confirmar(id,op)
         {
           if (op==1) {
             if (confirm("!!Advertencia!! Desea Desactivar Este Registro?")) {
             document.getElementById('bandera').value='desactivar';
             document.getElementById('baccion').value=id;
-
             document.supermarket.submit();
           }else
           {
@@ -161,9 +160,8 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Empleados<small>Listado de los empleados.</small></h3>
+                <h3>Proveedores<small>    Listado de los proveedores.</small></h3>
               </div>
-
             </div>
 
             <div class="clearfix"></div>
@@ -173,7 +171,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Empleados <small>Listado</small></h2>
+                    <h2>Proveedores <small>Listado</small></h2>
 
                     <div class="clearfix"></div>
                   </div>
@@ -188,7 +186,6 @@
 
                           <th>Nombre</th>
                           <th>Direccion</th>
-                          <th>Usuario</th>
                           <th>Estado</th>
                           <th>Activar/Desactivar</th>
                           <th>Modificar</th>
@@ -198,36 +195,27 @@
                       <tbody>
                         <?php
                       include 'conexion.php';
-                      $result = $conexion->query("select * from empleados");
+                      $result = $conexion->query("select * from proveedores");
                       if ($result) {
                         while ($fila = $result->fetch_object()) {
                           echo "<tr>";
-                          $user=$fila->idusuario;
-                          echo "<td>".$fila->nombreempleados."</td>";
+                          $proveedor=$fila->idproveedor;
+                          echo "<td>".$fila->nombre."</td>";
                           echo "<td>".$fila->direccion."</td>";
-                          echo "<td>".$user."</td>";
+                          if ($fila->estado==1) {
+                            echo "<td style='text-align:center;width:40px;'>Activo</td>";
+                            echo "<td style='text-align:center;width:40px;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $proveedor . ",1);><i class='fa fa-remove'></i>
+                               </button></td>";
+                          }else {
+                            echo "<td style='text-align:center;width:40px;'>Inactivo </td>";
+                            echo "<td style='text-align:center; width:40px;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $proveedor . ",2);><i class='fa fa-check'></i>
+                               </button></td>";
+                          }
+                          echo "<td style='text-align:center;width:40px;'><button align='center' type='button' class='btn btn-default' onclick=modificar(" . $proveedor . ");><i class='fa fa-edit'></i>
+                           </button></td>";
 
-                $result2 = $conexion->query("select estadousuario as estado,idusuario as usuario from usuarios where idusuario='".$fila->idusuario."'");
-                if ($result2) {
-                  while ($fila2 = $result2->fetch_object()) {
-                    if ($fila2->estado==1) {
-                       echo "<td>Activo</td>";
-                        //echo "<td><img src='imagenes.php?id=" . $fila->idempleados . "&tipo=empleado' width=100 height=180></td>";
-                       echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $fila->idempleados . ",'" . $fila->idusuario . "',1);><i class='fa fa-remove'></i>
-                          </button></td>";
-                    }else
-                    {
-                       echo "<td>Inactivo</td>";
-                        //echo "<td><img src='imagenes.php?id=" . $fila->idempleados . "&tipo=empleado' width=100 height=180></td>";
-                       echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $fila->idempleados . ",'" . $fila->idusuario . "',2);><i class='fa fa-check'></i>
-                          </button></td>";
-                    }
 
-                  }
-                }
-                         echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=modificar(" . $fila->idempleados . ",'" . $fila->idusuario . "',1);><i class='fa fa-edit'></i>
-                          </button></td>";
-                        echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick='llamarPaginaMapa(" . $fila->latitud . "," . $fila->longitud . ")'>
+                        echo "<td style='text-align:center;width:40px;'><button align='center' type='button' class='btn btn-default' onclick='llamarPaginaMapa(" . $fila->latitud . "," . $fila->longitud . ")'>
                           <i class='fa fa-map-marker'></i>
                            </button></td>";
                           echo "</tr>";
@@ -293,34 +281,24 @@ $baccion = $_REQUEST["baccion"];
 $user = $_REQUEST["user"];
 if ($bandera == 'enviar') {
     echo "<script type='text/javascript'>";
-    echo "document.location.href='editempleados.php?id=" . $baccion . "';";
+    echo "document.location.href='editproveedores.php?id=" . $baccion . "';";
     echo "</script>";
-    # code...
 }
 if ($bandera == "desactivar") {
-  $consulta = "UPDATE usuarios SET estadousuario = '0' WHERE idusuario = '".$baccion."'";
+  $consulta = "UPDATE proveedores SET estado = '0' WHERE idproveedor = '".$baccion."'";
     $resultado = $conexion->query($consulta);
-    if ($resultado) {
-        msg("Exito");
-    } else {
-        msg("No Exito");
-    }
+    msg("Exito.");
 }
 if ($bandera == "activar") {
-  $consulta = "UPDATE usuarios SET estadousuario = '1' WHERE idusuario = '".$baccion."'";
+  $consulta = "UPDATE proveedores SET estado = '1' WHERE idproveedor = '".$baccion."'";
     $resultado = $conexion->query($consulta);
-    if ($resultado) {
-        msg("Exito");
-    } else {
-        msg("No Exito");
-    }
+    msg("Exito.");
 }
-
 function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
-    echo "document.location.href='listaempleados.php';";
+    echo "document.location.href='listaproveedores.php';";
     echo "</script>";
 }
 ?>

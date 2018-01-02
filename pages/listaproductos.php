@@ -190,6 +190,7 @@
                           <th>Direccion</th>
                           <th>Usuario</th>
                           <th>Estado</th>
+
                           <th>Activar/Desactivar</th>
                           <th>Modificar</th>
                           <th>Ubicacion</th>
