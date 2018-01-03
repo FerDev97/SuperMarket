@@ -1,3 +1,9 @@
+<?php
+include "conexion.php";
+$result = $conexion->query("select * from empleados where idempleados=" . $id);
+$numeroProductos=$result->num_rows+1;
+$codigoProd=sprintf("%08d",$numeroProductos);
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,13 +38,18 @@
     <!--Scripts de validaciones-->
     <script type="text/javascript">
 
+      function prueba()
+      {
+
+        document.getElementById("codigoProducto").value=document.getElementById("barcode").value;
+      }
       function verificar(){
           if(document.getElementById('nombreEmpleado').value=="" ||
             document.getElementById('apellidoEmpleado').value==""  ||
             document.getElementById('direccionEmpleado').value=="" ||
             document.getElementById('telefonoEmpleado').value=="" ||
             document.getElementById('imagen').value=="" ||
-            document.getElementById('usuarioEmpleado').value=="" ||
+            document.getElementById('codigoProducto').value=="" ||
             document.getElementById('contraseñaEmpleado').value=="" ||
             document.getElementById('latitud').value=="" ||
             document.getElementById('longitud').value==""){
@@ -161,29 +172,32 @@
                       <!-- AUXILIARES -->
 <input type="hidden" name="bandera" id="bandera">
 <input type="hidden" name="baccion" id="baccion">
+<input type="hidden" name="barcode" id="barcode" value="<?php echo $codigoProd; ?>">
+
                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="usuarioEmpleado" name="usuarioEmpleado" placeholder="Usuario">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
+                        <input type="text" class="form-control has-feedback-left " id="codigoProducto" name="codigoProducto" placeholder="Codigo Producto" >
+                        <span class="fa fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
+                        <button  data-toggle="tooltip" data-placement="top" title="Generar Codigo" align='center' type='button' class='btn btn-default' onclick="prueba();"><i class='fa fa-barcode'></i>
+                        </button>
                     </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="password" class="form-control" id="contraseñaEmpleado" name="contraseñaEmpleado" placeholder="Contraseña">
+                        <input type="password" class="form-control" id="nombreProducto" name="nombreProducto" placeholder="Nombre">
                         <span class="fa fa-lock form-control-feedback right" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left" id="nombreEmpleado" name="nombreEmpleado" placeholder="Nombre">
+                        <input type="number" class="form-control has-feedback-left" id="stockMin" name="stockMin" placeholder="Stock Minimo" min="1">
                         <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control" id="apellidoEmpleado" name="apellidoEmpleado" placeholder="Apellido">
-                        <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
+                        <input type="number" class="form-control has-feedback-left" id="stockMin" name="stockMin" placeholder="$ Precio">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
-
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left " id="telefonoEmpleado" name="telefonoEmpleado" placeholder="Telefono">
-                        <span class="fa fa-phone form-control-feedback left" aria-hidden="true"></span>
+                        <input type="number" class="form-control has-feedback-left" id="margen" name="margen" placeholder="Margen de Ganancia">
+                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
