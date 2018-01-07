@@ -173,7 +173,7 @@ $codigoProd=sprintf("%08d",$numeroProductos);
 <input type="hidden" name="baccion" id="baccion">
 <input type="hidden" name="barcode" id="barcode" value="<?php echo $codigoProd; ?>">
 
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                         <input type="text" class="form-control has-feedback-left " id="codigoProducto" name="codigoProducto" placeholder="Codigo Producto" >
                         <span class="fa fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
                         <button  data-toggle="tooltip" data-placement="top" title="Generar Codigo" align='center' type='button' class='btn btn-default' onclick="prueba();"><i class='fa fa-barcode'></i>
@@ -184,6 +184,7 @@ $codigoProd=sprintf("%08d",$numeroProductos);
                         <input type="password" class="form-control" id="nombreProducto" name="nombreProducto" placeholder="Nombre">
                         <span class="fa fa-lock form-control-feedback right" aria-hidden="true"></span>
                       </div>
+
 
                       <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
                         <input type="number" class="form-control has-feedback-left" id="stockMin" name="stockMin" placeholder="Stock Minimo" min="1">
@@ -199,10 +200,6 @@ $codigoProd=sprintf("%08d",$numeroProductos);
                         <input type="text" class="form-control has-feedback-right" id="direccionEmpleado" name="direccionEmpleado" placeholder="Proveedor">
                         <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
                       </div>
-
-
-
-
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -224,26 +221,16 @@ $codigoProd=sprintf("%08d",$numeroProductos);
                 </div>
               </div>
  <!-- DIV PARA PONER EL MAPA PARA EmpleadoS-->
-
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>MAPA <small>Mapa Empleado.</small></h2>
-
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br />
-                    <div class="embed-responsive embed-responsive-4by3">
-                              <iframe src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
-                            </div>
-                  </div>
-                </div>
-              </div>
+ <div class="col-md-6 col-sm-6 col-xs-6">
+   <div class="x_panel">
+     <div class="x_title">
+       <img src="images/productos.jpg" style="height:500px; width:600px; aligned:center;">
+     </div>
+   </div>
+ </div>
             </div>
         </div>
         <!-- /page content -->
-
         <!-- footer content -->
         <?php include 'footer.php'; ?>
         <!-- /footer content -->
