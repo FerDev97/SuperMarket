@@ -43,16 +43,8 @@ $codigoProd=sprintf("%08d",$numeroProductos);
         document.getElementById("codigoProducto").value=document.getElementById("barcode").value;
       }
       function verificar(){
-          if(document.getElementById('nombreEmpleado').value=="" ||
-            document.getElementById('apellidoEmpleado').value==""  ||
-            document.getElementById('direccionEmpleado').value=="" ||
-            document.getElementById('telefonoEmpleado').value=="" ||
-            document.getElementById('imagen').value=="" ||
-            document.getElementById('codigoProducto').value=="" ||
-            document.getElementById('contraseñaEmpleado').value=="" ||
-            document.getElementById('latitud').value=="" ||
-            document.getElementById('longitud').value==""){
-            alert("Complete los campos");
+          if(document.getElementById('categoria').value=="" ){
+            alert("Complete los campos.");
           }else{
             document.getElementById('bandera').value="add";
            document.super.submit();
@@ -158,7 +150,7 @@ $codigoProd=sprintf("%08d",$numeroProductos);
             </div>
             <div class="clearfix"></div>
             <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="col-md-4 col-sm-4 col-xs-4">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Registro <small>Datos del producto.</small></h2>
@@ -173,40 +165,22 @@ $codigoProd=sprintf("%08d",$numeroProductos);
 <input type="hidden" name="baccion" id="baccion">
 <input type="hidden" name="barcode" id="barcode" value="<?php echo $codigoProd; ?>">
 
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-left " id="codigoProducto" name="codigoProducto" placeholder="Codigo Producto" >
-                        <span class="fa fa fa-barcode form-control-feedback left" aria-hidden="true"></span>
-                        <button  data-toggle="tooltip" data-placement="top" title="Generar Codigo" align='center' type='button' class='btn btn-default' onclick="prueba();"><i class='fa fa-barcode'></i>
-                        </button>
-                    </div>
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="password" class="form-control" id="nombreProducto" name="nombreProducto" placeholder="Nombre">
-                        <span class="fa fa-lock form-control-feedback right" aria-hidden="true"></span>
-                      </div>
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="number" class="form-control has-feedback-left" id="stockMin" name="stockMin" placeholder="Stock Minimo" min="1">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                      </div>
 
-                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="number" class="form-control has-feedback-left" id="margen" name="margen" placeholder="Margen de Ganancia">
-                        <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-                      </div>
 
                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                        <input type="text" class="form-control has-feedback-right" id="direccionEmpleado" name="direccionEmpleado" placeholder="Proveedor">
-                        <span class="fa fa-home form-control-feedback right" aria-hidden="true"></span>
+                        <input type="text" class="form-control has-feedback-left" id="categoria" name="categoria" placeholder="Categoria">
+                        <span class="fa fa-home form-control-feedback left" aria-hidden="true"></span>
                       </div>
 
 
 
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
+
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
+
                         </div>
                       </div>
 
@@ -223,23 +197,69 @@ $codigoProd=sprintf("%08d",$numeroProductos);
                   </div>
                 </div>
               </div>
- <!-- DIV PARA PONER EL MAPA PARA EmpleadoS-->
+ <!-- DIV PARA PONER LA TABLA DE CATEGORIAS-->
 
-              <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>MAPA <small>Mapa Empleado.</small></h2>
 
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <br />
-                    <div class="embed-responsive embed-responsive-4by3">
-                              <iframe src="ej.php" class="embed-responsive-item" allowfullscreen></iframe>
-                            </div>
-                  </div>
-                </div>
-              </div>
+   <div class="col-md-8 col-sm-8 col-xs-8">
+     <div class="x_panel">
+       <div class="x_title">
+         <h2>Proveedores <small>Listado</small></h2>
+
+         <div class="clearfix"></div>
+       </div>
+       <div class="x_content">
+         <p class="text-muted font-13 m-b-30">
+           Resultados por pagina.
+         </p>
+         <table id="datatable" class="table table-striped table-bordered">
+           <thead>
+             <tr>
+
+
+               <th>Nombre</th>
+               <th>Direccion</th>
+               <th>Estado</th>
+               <th>Activar/Desactivar</th>
+               <th>Modificar</th>
+               <th>Ubicacion</th>
+             </tr>
+           </thead>
+           <tbody>
+             <?php
+           include 'conexion.php';
+           $result = $conexion->query("select * from proveedores");
+           if ($result) {
+             while ($fila = $result->fetch_object()) {
+               echo "<tr>";
+               $proveedor=$fila->idproveedor;
+               echo "<td>".$fila->nombre."</td>";
+               echo "<td>".$fila->direccion."</td>";
+               if ($fila->estado==1) {
+                 echo "<td style='text-align:center;width:40px;'>Activo</td>";
+                 echo "<td style='text-align:center;width:40px;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $proveedor . ",1);><i class='fa fa-remove'></i>
+                    </button></td>";
+               }else {
+                 echo "<td style='text-align:center;width:40px;'>Inactivo </td>";
+                 echo "<td style='text-align:center; width:40px;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $proveedor . ",2);><i class='fa fa-check'></i>
+                    </button></td>";
+               }
+               echo "<td style='text-align:center;width:40px;'><button align='center' type='button' class='btn btn-default' onclick=modificar(" . $proveedor . ");><i class='fa fa-edit'></i>
+                </button></td>";
+
+
+             echo "<td style='text-align:center;width:40px;'><button align='center' type='button' class='btn btn-default' onclick='llamarPaginaMapa(" . $fila->latitud . "," . $fila->longitud . ")'>
+               <i class='fa fa-map-marker'></i>
+                </button></td>";
+               echo "</tr>";
+                }
+           }
+            ?>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+ </div>
             </div>
         </div>
         <!-- /page content -->
@@ -291,49 +311,18 @@ $codigoProd=sprintf("%08d",$numeroProductos);
 
 <?php
 include "conexion.php";
-
 $bandera          = $_REQUEST["bandera"];
-$nombreEmpleado    = $_REQUEST["nombreEmpleado"];
-$apellidoEmpleado  = $_REQUEST["apellidoEmpleado"];
-$telefonoEmpleado  = $_REQUEST["telefonoEmpleado"];
-$direccionEmpleado = $_REQUEST["direccionEmpleado"];
-$latitud = $_REQUEST["latitud"];
-$longitud = $_REQUEST["longitud"];
-$usuarioEmpleado = $_REQUEST["usuarioEmpleado"];
-$contraseñaEmpleado = $_REQUEST["contraseñaEmpleado"];
-$imagenEmpleado = $_REQUEST["imagen"];
-$tipoUsuario="Empleado";
+$categoria    = $_REQUEST["categoria"];
+msg($categoria);
 //ahora hay que agregar la pinche imagen alv :'v
 if ($bandera == "add") {
-        $consultaUser  = "INSERT INTO usuarios VALUES('".$usuarioEmpleado."','" . $contraseñaEmpleado . "','".$tipoUsuario."',1)";
-        $resultado = $conexion->query($consultaUser);
-        if ($resultado) {
-          msg("Exito Usuario");
-
-          $permitidos = array("image/jpg", "image/jpeg", "image/png");
-    $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
-    if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
-        //Este es el archivo temporaral.
-        $imagen_temporal = $_FILES['imagen']['tmp_name'];
-        //este es el tipo de archivo
-        $tipo = $_FILES['imagen']['type'];
-        //leer el archivo temporarl en binario
-        $fp   = fopen($imagen_temporal, 'r+b');
-        $data = fread($fp, filesize($imagen_temporal));
-        fclose($fp);
-        //escapar los caracteres
-        $data      = mysqli_real_escape_string($conexion, $data);
-        $consulta  = "INSERT INTO empleados VALUES('null','" . $nombreEmpleado . "','" . $apellidoEmpleado . "','" . $direccionEmpleado . "','" . $latitud  . "','" . $longitud . "','" . $telefonoEmpleado . "','" . $data . "','" . $tipo . "','" . $usuarioEmpleado . "')";
-        $resultado = $conexion->query($consulta);
-        if ($resultado) {
-            msg("Exito");
-        } else {
-            msg("No Exito");
-        }
-    }
+  $consulta2  = "INSERT INTO categorias VALUES('null','" . $categoria . "')";
+  $resultadoCat = $conexion->query($consulta2);
+        if ($resultadoCat) {
+          msg("Exito Categoria");
         }else
         {
-          msg("Error Usuario.");
+          msg("Error Categoria.");
         }
 }
 function msg($texto)

@@ -29,6 +29,7 @@
                     <ul class="nav child_menu">
                       <li><a href="productos.php">Nuevo</a></li>
                       <li><a href="listaproductos.php">Lista</a></li>
+                      <li><a href="categorias.php">Categorías</a></li>
                     </ul>
                   </li>
 
