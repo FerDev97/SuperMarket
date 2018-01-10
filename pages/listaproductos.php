@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Empleados</title>
+    <title>Productos</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@
         }
 
 
-        function confirmar(ide,id,op)
+        function confirmar(id,op)
         {
           if (op==1) {
             if (confirm("!!Advertencia!! Desea Desactivar Este Registro?")) {
@@ -161,7 +161,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Empleados<small>Listado de los empleados.</small></h3>
+                <h3>Productos<small>Listado de los productos.</small></h3>
               </div>
 
             </div>
@@ -173,7 +173,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Empleados <small>Listado</small></h2>
+                    <h2>Productos<small>Listado</small></h2>
 
                     <div class="clearfix"></div>
                   </div>
@@ -185,52 +185,45 @@
                       <thead>
                         <tr>
 
-
-                          <th>Nombre</th>
-                          <th>Direccion</th>
-                          <th>Usuario</th>
+                          <th>Codigo</th>
+                          <th>Producto</th>
+                          <th>Categoria</th>
+                          <th>Proveedor</th>
+                          <th>Stock</th>
                           <th>Estado</th>
-
                           <th>Activar/Desactivar</th>
                           <th>Modificar</th>
-                          <th>Ubicacion</th>
+
                         </tr>
                       </thead>
                       <tbody>
                         <?php
                       include 'conexion.php';
-                      $result = $conexion->query("select * from empleados");
+                      $result = $conexion->query("select p.idproductos as idprod, p.codigoproductos as codigo, p.nombreproductos as nombre,p.precioproductos as precio,p.cantidadproductos as cantidad, c.categoria as categoria,p.disponibilidad as disp, pr.nombre as proveedor from productos as p, categorias as c, proveedores as pr where p.idcategoria=c.idcategoria and p.idproveedor=pr.idproveedor");
                       if ($result) {
                         while ($fila = $result->fetch_object()) {
                           echo "<tr>";
-                          $user=$fila->idusuario;
-                          echo "<td>".$fila->nombreempleados."</td>";
-                          echo "<td>".$fila->direccion."</td>";
-                          echo "<td>".$user."</td>";
-
-                $result2 = $conexion->query("select estadousuario as estado,idusuario as usuario from usuarios where idusuario='".$fila->idusuario."'");
-                if ($result2) {
-                  while ($fila2 = $result2->fetch_object()) {
-                    if ($fila2->estado==1) {
-                       echo "<td>Activo</td>";
+                          $producto=$fila->idprod;
+                          echo "<td>".$fila->codigo."</td>";
+                          echo "<td>".$fila->nombre."</td>";
+                          echo "<td>".$fila->categoria."</td>";
+                          echo "<td>".$fila->proveedor."</td>";
+                          echo "<td>".$fila->cantidad."</td>";
+                    if ($fila->disp==1) {
+                       echo "<td>Disponible.</td>";
                         //echo "<td><img src='imagenes.php?id=" . $fila->idempleados . "&tipo=empleado' width=100 height=180></td>";
-                       echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $fila->idempleados . ",'" . $fila->idusuario . "',1);><i class='fa fa-remove'></i>
+                       echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $producto . ",1);><i class='fa fa-remove'></i>
                           </button></td>";
                     }else
                     {
-                       echo "<td>Inactivo</td>";
+                       echo "<td>No disponible.</td>";
                         //echo "<td><img src='imagenes.php?id=" . $fila->idempleados . "&tipo=empleado' width=100 height=180></td>";
-                       echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $fila->idempleados . ",'" . $fila->idusuario . "',2);><i class='fa fa-check'></i>
+                       echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $producto . ",2);><i class='fa fa-check'></i>
                           </button></td>";
                     }
-
-                  }
-                }
-                         echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=modificar(" . $fila->idempleados . ",'" . $fila->idusuario . "',1);><i class='fa fa-edit'></i>
+                         echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=modificar(" . $producto . ");><i class='fa fa-edit'></i>
                           </button></td>";
-                        echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick='llamarPaginaMapa(" . $fila->latitud . "," . $fila->longitud . ")'>
-                          <i class='fa fa-map-marker'></i>
-                           </button></td>";
+
                           echo "</tr>";
                            }
                       }
@@ -299,7 +292,7 @@ if ($bandera == 'enviar') {
     # code...
 }
 if ($bandera == "desactivar") {
-  $consulta = "UPDATE usuarios SET estadousuario = '0' WHERE idusuario = '".$baccion."'";
+  $consulta = "UPDATE productos SET disponibilidad = '0' WHERE idproductos = '".$baccion."'";
     $resultado = $conexion->query($consulta);
     if ($resultado) {
         msg("Exito");
@@ -308,7 +301,7 @@ if ($bandera == "desactivar") {
     }
 }
 if ($bandera == "activar") {
-  $consulta = "UPDATE usuarios SET estadousuario = '1' WHERE idusuario = '".$baccion."'";
+  $consulta = "UPDATE productos SET disponibilidad = '1' WHERE idproductos = '".$baccion."'";
     $resultado = $conexion->query($consulta);
     if ($resultado) {
         msg("Exito");
@@ -321,7 +314,7 @@ function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
-    echo "document.location.href='listaempleados.php';";
+    echo "document.location.href='listaproductos.php';";
     echo "</script>";
 }
 ?>
