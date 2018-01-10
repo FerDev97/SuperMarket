@@ -45,6 +45,7 @@ $codigoProd=sprintf("%08d",$numeroProductos);
       function verificar(){
           if(document.getElementById('codigoProducto').value=="" ||
             document.getElementById('nombreProducto').value==""  ||
+            document.getElementById('descripcion').value==""  ||
             document.getElementById('stockMin').value=="" ||
             document.getElementById('margen').value=="" ||
             document.getElementById('proveedor').value=="" ||
@@ -53,6 +54,7 @@ $codigoProd=sprintf("%08d",$numeroProductos);
             alert("Complete los campos");
           }else{
             document.getElementById('bandera').value="add";
+            alert(document.getElementById('codigoProducto').value);
            document.super.submit();
           }
 
@@ -221,7 +223,13 @@ $codigoProd=sprintf("%08d",$numeroProductos);
                            ?>
                         </select>
                       </div>
+
+                      <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                        <input type="text" class="form-control has-feedback-left" id="descripcion" name="descripcion" placeholder="Descripcion.">
+                        <span class="fa fa-commenting form-control-feedback left" aria-hidden="true"></span>
+                      </div>
                       <div class="form-group">
+
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
@@ -301,27 +309,21 @@ $codigoProd=sprintf("%08d",$numeroProductos);
 </html>
 
 <?php
-include "conexion.php";
-
+include "../config/conexion.php";
 $bandera          = $_REQUEST["bandera"];
-$nombreEmpleado    = $_REQUEST["nombreEmpleado"];
-$apellidoEmpleado  = $_REQUEST["apellidoEmpleado"];
-$telefonoEmpleado  = $_REQUEST["telefonoEmpleado"];
-$direccionEmpleado = $_REQUEST["direccionEmpleado"];
-$latitud = $_REQUEST["latitud"];
-$longitud = $_REQUEST["longitud"];
-$usuarioEmpleado = $_REQUEST["usuarioEmpleado"];
-$contraseñaEmpleado = $_REQUEST["contraseñaEmpleado"];
-$imagenEmpleado = $_REQUEST["imagen"];
-$tipoUsuario="Empleado";
-//ahora hay que agregar la pinche imagen alv :'v
+$nombreProducto    = $_REQUEST["nombreProducto"];
+$codigoProducto  = $_REQUEST["codigoProducto"];
+$descripcion  = $_REQUEST["descripcion"];
+$stockMin = $_REQUEST["stockMin"];
+$margen = $_REQUEST["margen"];
+$proveedor = $_REQUEST["proveedor"];
+$categoria = $_REQUEST["categoria"];
+$imagenProducto = $_REQUEST["imagen"];
+$precioProducto=0;
+$cantidadProducto=0;
+$disponibilidad=0;
 if ($bandera == "add") {
-        $consultaUser  = "INSERT INTO usuarios VALUES('".$usuarioEmpleado."','" . $contraseñaEmpleado . "','".$tipoUsuario."',1)";
-        $resultado = $conexion->query($consultaUser);
-        if ($resultado) {
-          msg("Exito Usuario");
-
-          $permitidos = array("image/jpg", "image/jpeg", "image/png");
+    $permitidos = array("image/jpg", "image/jpeg", "image/png");
     $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
     if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
         //Este es el archivo temporaral.
@@ -334,18 +336,28 @@ if ($bandera == "add") {
         fclose($fp);
         //escapar los caracteres
         $data      = mysqli_real_escape_string($conexion, $data);
-        $consulta  = "INSERT INTO empleados VALUES('null','" . $nombreEmpleado . "','" . $apellidoEmpleado . "','" . $direccionEmpleado . "','" . $latitud  . "','" . $longitud . "','" . $telefonoEmpleado . "','" . $data . "','" . $tipo . "','" . $usuarioEmpleado . "')";
+        msg($codigoProducto);
+        msg($nombreProducto);
+        msg($precioProducto);
+        msg($cantidadProducto);
+        msg($tipo);
+        msg($categoria);
+        msg($disponibilidad);
+        msg($stockMin);
+        msg($proveedor);
+        msg($margen);
+        msg($descripcion);
+        $consulta  = "INSERT INTO productos VALUES('null','" . $codigoProducto . "','" . $nombreProducto . "',' 0 ',' 0 ','" . $data . "','" . $tipo . "','" . $categoria  . "',' 0
+        ','" . $stockMin . "','" . $proveedor . "','" . $margen . "','" . $descripcion . "')";
+        msg($consulta);
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito");
         } else {
-            msg("No Exito");
+            msg(mysqli_error($conexion));
         }
     }
-        }else
-        {
-          msg("Error Usuario.");
-        }
+
 }
 function msg($texto)
 {
