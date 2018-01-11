@@ -356,7 +356,7 @@ $precioProducto=0;
 $cantidadProducto=0;
 $disponibilidad=0;
 if ($bandera == "add") {
-  if($_FILES['imagen']['name']==null){
+  if($_FILES['imagen']['name']!=null){
     $permitidos = array("image/jpg", "image/jpeg", "image/png");
     $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
     if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
@@ -380,18 +380,7 @@ if ($bandera == "add") {
             msg(mysqli_error($conexion));
         }
   }
-    $permitidos = array("image/jpg", "image/jpeg", "image/png");
-    $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
-    if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
-        //Este es el archivo temporaral.
-        $imagen_temporal = $_FILES['imagen']['tmp_name'];
-        //este es el tipo de archivo
-        $tipo = $_FILES['imagen']['type'];
-        //leer el archivo temporarl en binario
-        $fp   = fopen($imagen_temporal, 'r+b');
-        $data = fread($fp, filesize($imagen_temporal));
-        fclose($fp);
-        //escapar los caracteres
+}
         $data      = mysqli_real_escape_string($conexion, $data);
         $consulta  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',' 0 ',' 0 ',foto='" . $data . "',tipofoto='" . $tipo . "',idcategoria='" . $categoria  . "',' 0
         ',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "'";
@@ -402,9 +391,9 @@ if ($bandera == "add") {
         } else {
             msg(mysqli_error($conexion));
         }
-    }
 
 }
+
 function msg($texto)
 {
     echo "<script type='text/javascript'>";
