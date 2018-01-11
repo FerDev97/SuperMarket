@@ -12,7 +12,7 @@ if ($result) {
         $nombreproductoR   = $fila->nombreproductos;
         $precioproductoR = $fila->precioproductos;
         $cantidadproductoR   = $fila->cantidadproductos;
-        $imagenR  = $fila->imagen;
+        $imagenR  = $fila->foto;
         $idcategoriaR  = $fila->idcategoria;
         $disponibilidadR  = $fila->disponibilidad;
         $stockminR  = $fila->stockmin;
@@ -285,7 +285,7 @@ if ($result) {
    <div class="x_panel">
      <div class="x_title">
        <?php
-         echo "<img src='imagenes.php?id=" . $idproductosR . "&tipo=producto' width=200 height=180 align='center' style='margin-top:30px;'> ";
+         echo "<img src='imagenes.php?id=" . $id . "&tipo=producto' width=200 height=180 align='center' style='margin-top:30px;'> ";
         ?>
      </div>
    </div>
@@ -354,7 +354,7 @@ $precioProducto=0;
 $cantidadProducto=0;
 $disponibilidad=0;
 if ($bandera == "add") {
-  
+
   if($_FILES['imagen']['name']==null){
     msg("Entra modificar solo producto");
     $consulta1  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='1'";
