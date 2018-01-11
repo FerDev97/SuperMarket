@@ -12,7 +12,7 @@ if ($result) {
         $nombreproductoR   = $fila->nombreproductos;
         $precioproductoR = $fila->precioproductos;
         $cantidadproductoR   = $fila->cantidadproductos;
-        $fotoR  = $fila->foto;
+        $imagenR  = $fila->imagen;
         $idcategoriaR  = $fila->idcategoria;
         $disponibilidadR  = $fila->disponibilidad;
         $stockminR  = $fila->stockmin;
