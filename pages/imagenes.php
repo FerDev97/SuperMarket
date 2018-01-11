@@ -48,7 +48,7 @@ if ($result) {
 }
 //cuando la imagen la solicite un producto
 if ($tipo=='producto') {
-    $result = $conexion->query("select fotoproductos as foto,tipofotop as tipo from productos where idproductos=" . $id . "");
+    $result = $conexion->query("select foto,tipofoto as tipo from productos where idproductos=" . $id . "");
 if ($result) {
     while ($fila = $result->fetch_object()) {
         $imagen = $fila->foto;
@@ -56,13 +56,9 @@ if ($result) {
         header("Content-type: " . $tipo . "");
         echo $imagen;
     }
-
 } else {
     echo '<option value="">Error en la BD producto</opcion>';
 }
 }
 
 ?>
-
-
-

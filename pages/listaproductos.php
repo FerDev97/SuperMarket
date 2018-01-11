@@ -193,7 +193,6 @@
                           <th>Estado</th>
                           <th>Activar/Desactivar</th>
                           <th>Modificar</th>
-
                         </tr>
                       </thead>
                       <tbody>
