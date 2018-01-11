@@ -39,7 +39,6 @@ $codigoProd=sprintf("%08d",$numeroProductos);
 
       function prueba()
       {
-
         document.getElementById("codigoProducto").value=document.getElementById("barcode").value;
       }
       function verificar(){
