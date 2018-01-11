@@ -12,7 +12,11 @@ if ($result) {
         $nombreproductoR   = $fila->nombreproductos;
         $precioproductoR = $fila->precioproductos;
         $cantidadproductoR   = $fila->cantidadproductos;
+<<<<<<< HEAD
         $fotoR  = $fila->foto;
+=======
+        $imagenR  = $fila->foto;
+>>>>>>> 84fc5978f2d8897aea32d968165d5c5cdfb602b0
         $idcategoriaR  = $fila->idcategoria;
         $disponibilidadR  = $fila->disponibilidad;
         $stockminR  = $fila->stockmin;
@@ -285,7 +289,7 @@ if ($result) {
    <div class="x_panel">
      <div class="x_title">
        <?php
-         echo "<img src='imagenes.php?id=" . $idproductosR . "&tipo=producto' width=200 height=180 align='center' style='margin-top:30px;'> ";
+         echo "<img src='imagenes.php?id=" . $id . "&tipo=producto' width=200 height=180 align='center' style='margin-top:30px;'> ";
         ?>
      </div>
    </div>
