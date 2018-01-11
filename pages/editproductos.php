@@ -12,7 +12,7 @@ if ($result) {
         $nombreproductoR   = $fila->nombreproductos;
         $precioproductoR = $fila->precioproductos;
         $cantidadproductoR   = $fila->cantidadproductos;
-        $imagenR  = $fila->imagen;
+        $fotoR  = $fila->foto;
         $idcategoriaR  = $fila->idcategoria;
         $disponibilidadR  = $fila->disponibilidad;
         $stockminR  = $fila->stockmin;
@@ -354,7 +354,7 @@ $precioProducto=0;
 $cantidadProducto=0;
 $disponibilidad=0;
 if ($bandera == "add") {
-  
+
   if($_FILES['imagen']['name']==null){
     msg("Entra modificar solo producto");
     $consulta1  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='1'";
@@ -380,7 +380,7 @@ if ($bandera == "add") {
       fclose($fp);
       //escapar los caracteres
       $data      = mysqli_real_escape_string($conexion, $data);
-      $consulta  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',foto='" . $data . "',tipofoto='" . $tipo . "',idcategoria='" . $categoria  . "',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
+      $consulta  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',foto='".$data."',tipofoto='".$tipo."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='1'";
       msg($consulta);
       $resultado = $conexion->query($consulta);
       if ($resultado) {
