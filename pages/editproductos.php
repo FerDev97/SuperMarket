@@ -367,8 +367,7 @@ if ($bandera == "add") {
   msg($descripcion);
   if($_FILES['imagen']['name']==null){
     msg("Entra modificar solo producto");
-    $consulta1  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',' 0 ',' 0 ',idcategoria='" . $categoria  . "',' 0
-    ',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
+    $consulta1  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',idcategoria='" . $categoria  . "',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
     $resultado3 = $conexion->query($consulta1);
     msg("Antes de if de resultado 3");
     msg(mysqli_error($conexion));
@@ -392,8 +391,7 @@ if ($bandera == "add") {
       fclose($fp);
       //escapar los caracteres
       $data      = mysqli_real_escape_string($conexion, $data);
-      $consulta  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',' 0 ',' 0 ',foto='" . $data . "',tipofoto='" . $tipo . "',idcategoria='" . $categoria  . "',' 0
-      ',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
+      $consulta  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',foto='" . $data . "',tipofoto='" . $tipo . "',idcategoria='" . $categoria  . "',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
       msg($consulta);
       $resultado = $conexion->query($consulta);
       if ($resultado) {
