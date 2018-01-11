@@ -1,6 +1,6 @@
 <?php
 include "conexion.php";
-$result = $conexion->query("select * from empleados where idempleados=" . $id);
+$result = $conexion->query("select * from productos");
 $numeroProductos=$result->num_rows+1;
 $codigoProd=sprintf("%08d",$numeroProductos);
  ?>
