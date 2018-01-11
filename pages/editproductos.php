@@ -7,7 +7,7 @@ $numeroProductos=$result2->num_rows+1;
 $codigoProd=sprintf("%08d",$numeroProductos);
 if ($result) {
     while ($fila = $result->fetch_object()) {
-        $idproductosR = $fila->idproductos;
+
         $codigoproductoR = $fila->codigoproductos;
         $nombreproductoR   = $fila->nombreproductos;
         $precioproductoR = $fila->precioproductos;
@@ -186,7 +186,7 @@ if ($result) {
                     <form class="form-horizontal form-label-left input_mask" name="super" method="POST" enctype="multipart/form-data">
                       <!-- AUXILIARES -->
 <input type="hidden" name="bandera" id="bandera">
-<input type="hidden" name="baccion" id="baccion" value="<?php echo $idproductosR;?>">
+<input type="hidden" name="baccion" id="baccion" value="<?php echo $id;?>">
 <input type="hidden" name="barcode" id="barcode" value="<?php echo $codigoProd; ?>">
 
                     <div class="col-md-6 col-sm-6 col-xs-6 form-group has-feedback">
@@ -354,23 +354,12 @@ $precioProducto=0;
 $cantidadProducto=0;
 $disponibilidad=0;
 if ($bandera == "add") {
-  msg("Entra add");
-  msg($codigoProducto);
-  msg($nombreProducto);
-  msg($precioProducto);
-  msg($cantidadProducto);
-  msg($categoria);
-  msg($disponibilidad);
-  msg($stockMin);
-  msg($proveedor);
-  msg($margen);
-  msg($descripcion);
+  
   if($_FILES['imagen']['name']==null){
     msg("Entra modificar solo producto");
-    $consulta1  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',idcategoria='" . $categoria  . "',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
+    $consulta1  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='1'";
     $resultado3 = $conexion->query($consulta1);
     msg("Antes de if de resultado 3");
-    msg(mysqli_error($conexion));
     if ($resultado3) {
         msg("Exito");
     } else {
@@ -412,7 +401,7 @@ function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
-    //echo "document.location.href='listaproductos.php';";
+    echo "document.location.href='listaproductos.php';";
     echo "</script>";
 }
 ?>
