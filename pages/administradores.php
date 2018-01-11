@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+
     <title>Super Market | </title>
 
     <!-- Bootstrap -->
@@ -32,7 +32,7 @@
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <!--Scripts de validaciones-->
     <script type="text/javascript">
-      
+
       function verificar(){
           if(document.getElementById('nombreAdministrador').value=="" ||
             document.getElementById('apellidoAdministrador').value==""  ||
@@ -164,7 +164,7 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Registro <small>Datos del administrador.</small></h2>
-                    
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -213,7 +213,7 @@
                         <span class="fa fa-compass form-control-feedback right" aria-hidden="true"></span>
                       </div>
 
-                      
+
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
@@ -221,13 +221,13 @@
                           <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
                         </div>
                       </div>
-                     
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                           <button type="button" class="btn btn-primary" onclick="verificar()">Agregar</button>
                           <button class="btn btn-primary" type="reset">Cancelar</button>
-                          
+
                         </div>
                       </div>
 
@@ -236,12 +236,12 @@
                 </div>
               </div>
  <!-- DIV PARA PONER EL MAPA PARA AdministradorS-->
-            
+
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>MAPA <small>Mapa Administrador.</small></h2>
-                    
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -297,7 +297,7 @@
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+
   </body>
 </html>
 
@@ -315,7 +315,7 @@ $usuarioAdministrador = $_REQUEST["usuarioAdministrador"];
 $contraseñaAdministrador = $_REQUEST["contraseñaAdministrador"];
 $imagenAdministrador = $_REQUEST["imagen"];
 $tipoUsuario="Administrador";
-//ahora hay que agregar la pinche imagen alv :'v
+
 if ($bandera == "add") {
         $consultaUser  = "INSERT INTO usuarios VALUES('".$usuarioAdministrador."','" . $contraseñaAdministrador . "','".$tipoUsuario."',1)";
         $resultado = $conexion->query($consultaUser);
@@ -351,7 +351,7 @@ if ($bandera == "add") {
         {
           msg("Error Usuario.");
         }
-        
+
 }
 function msg($texto)
 {
