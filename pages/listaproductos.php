@@ -286,7 +286,7 @@ $baccion = $_REQUEST["baccion"];
 $user = $_REQUEST["user"];
 if ($bandera == 'enviar') {
     echo "<script type='text/javascript'>";
-    echo "document.location.href='editempleados.php?id=" . $baccion . "';";
+    echo "document.location.href='editproductos.php?id=" . $baccion . "';";
     echo "</script>";
     # code...
 }
