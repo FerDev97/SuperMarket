@@ -67,12 +67,10 @@ if ($result) {
             document.getElementById('stockMin').value=="" ||
             document.getElementById('margen').value=="" ||
             document.getElementById('proveedor').value=="" ||
-            document.getElementById('categoria').value=="" ||
-            document.getElementById('imagen').value==""){
+            document.getElementById('categoria').value==""){
             alert("Complete los campos");
           }else{
             document.getElementById('bandera').value="add";
-
            document.super.submit();
           }
 
@@ -342,7 +340,7 @@ if ($result) {
 </html>
 
 <?php
-include "../config/conexion.php";
+include "conexion.php";
 $bandera          = $_REQUEST["bandera"];
 $nombreProducto    = $_REQUEST["nombreProducto"];
 $codigoProducto  = $_REQUEST["codigoProducto"];
@@ -356,42 +354,57 @@ $precioProducto=0;
 $cantidadProducto=0;
 $disponibilidad=0;
 if ($bandera == "add") {
+  msg("Entra add");
+  msg($codigoProducto);
+  msg($nombreProducto);
+  msg($precioProducto);
+  msg($cantidadProducto);
+  msg($categoria);
+  msg($disponibilidad);
+  msg($stockMin);
+  msg($proveedor);
+  msg($margen);
+  msg($descripcion);
   if($_FILES['imagen']['name']==null){
-    $consulta  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',' 0 ',' 0 ',idcategoria='" . $categoria  . "',' 0
+    msg("Entra modificar solo producto");
+    $consulta1  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',' 0 ',' 0 ',idcategoria='" . $categoria  . "',' 0
     ',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
-    msg($consulta);
-    $resultado = $conexion->query($consulta);
-    if ($resultado) {
+    $resultado3 = $conexion->query($consulta1);
+    msg("Antes de if de resultado 3");
+    msg(mysqli_error($conexion));
+    if ($resultado3) {
         msg("Exito");
     } else {
         msg(mysqli_error($conexion));
     }
-
+  }else {
+    msg("Modificara con imagen");
+    $permitidos = array("image/jpg", "image/jpeg", "image/png");
+    $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
+  if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
+      //Este es el archivo temporaral.
+      $imagen_temporal = $_FILES['imagen']['tmp_name'];
+      //este es el tipo de archivo
+      $tipo = $_FILES['imagen']['type'];
+      //leer el archivo temporarl en binario
+      $fp   = fopen($imagen_temporal, 'r+b');
+      $data = fread($fp, filesize($imagen_temporal));
+      fclose($fp);
+      //escapar los caracteres
+      $data      = mysqli_real_escape_string($conexion, $data);
+      $consulta  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',' 0 ',' 0 ',foto='" . $data . "',tipofoto='" . $tipo . "',idcategoria='" . $categoria  . "',' 0
+      ',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
+      msg($consulta);
+      $resultado = $conexion->query($consulta);
+      if ($resultado) {
+          msg("Exito");
+      } else {
+          msg(mysqli_error($conexion));
+      }
+  }
   }
   //MODIFICAR CON IMAAAAAGEEEEEN
-  $permitidos = array("image/jpg", "image/jpeg", "image/png");
-  $limite_kb  = 16384; //tamanio maximo que permitira subir, es el limite de medium blow(16mb)
-if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'] <= $limite_kb * 1024) {
-    //Este es el archivo temporaral.
-    $imagen_temporal = $_FILES['imagen']['tmp_name'];
-    //este es el tipo de archivo
-    $tipo = $_FILES['imagen']['type'];
-    //leer el archivo temporarl en binario
-    $fp   = fopen($imagen_temporal, 'r+b');
-    $data = fread($fp, filesize($imagen_temporal));
-    fclose($fp);
-    //escapar los caracteres
-    $data      = mysqli_real_escape_string($conexion, $data);
-    $consulta  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',' 0 ',' 0 ',foto='" . $data . "',tipofoto='" . $tipo . "',idcategoria='" . $categoria  . "',' 0
-    ',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
-    msg($consulta);
-    $resultado = $conexion->query($consulta);
-    if ($resultado) {
-        msg("Exito");
-    } else {
-        msg(mysqli_error($conexion));
-    }
-}
+
 
 
 
@@ -400,8 +413,8 @@ if (in_array($_FILES['imagen']['type'], $permitidos) && $_FILES['imagen']['size'
 function msg($texto)
 {
     echo "<script type='text/javascript'>";
-    echo "alert('$texto.');";
-    echo "document.location.href='listaproductos.php';";
+    echo "alert('$texto');";
+    //echo "document.location.href='listaproductos.php';";
     echo "</script>";
 }
 ?>
