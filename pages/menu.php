@@ -17,14 +17,12 @@
                       <li><a href="listaclientes.php">Lista</a></li>
                     </ul>
                   </li>
-
                   <li><a><i class="fa fa-user"></i> Empleados <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="empleados.php">Nuevo</a></li>
                       <li><a href="listaempleados.php">Lista</a></li>
                     </ul>
                   </li>
-
                   <li><a><i class="fa fa-product-hunt"></i> Productos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="productos.php">Nuevo</a></li>
@@ -32,13 +30,12 @@
                       <li><a href="categorias.php">Categorías</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-list"></i> Kardex <span class="fa fa-chevron-down"></span></a>
+                  <!-- <li><a><i class="fa fa-list"></i> Kardex <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="productos.php">Compra</a></li>
-                      <li><a href="listaproductos.php">Venta</a></li>
+                      <li><a href="kcompra.php">Compra</a></li>
+                      <li><a href="kventa.php">Venta</a></li>
                     </ul>
-                  </li>
-
+                  </li> -->
                   <li><a><i class="fa fa-user"></i> Proveedores <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="proveedores.php">Nuevo</a></li>

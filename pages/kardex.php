@@ -1,3 +1,15 @@
+<?php
+  $idproducto=$_REQUEST["id"];
+  include 'conexion.php';
+  $consulta = "select * from productos where idproductos=".$idproducto;
+    $resultado = $conexion->query($consulta);
+    if ($resultado) {
+      while ($fila=$resultado->fetch_object()) {
+        $nombre=$fila->nombreproductos;
+      }
+    }
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,17 +45,49 @@
           var url="/supermarket/pages/verMapa.php?lat="+lat+"&lon="+lon;
           window.open(url,"Nuevo","alwaysRaised=no");
         }
+        function ejecutar()
+        {
+          if(document.getElementById('fechaK').value=="" || document.getElementById('descripcionK').value=="" || document.getElementById('cantidadK').value=="" || document.getElementById('vunitarioK').value==""){
+            alert("Complete los campos");
+          }else{
+            document.getElementById('bandera').value="add";
+            document.supermarket.submit();
+            }
+        }
+        function llamado()
+        {
+          var opciones=document.getElementsByName("accion");
+          var accion="";
+          for (var i = 0; i < opciones.length; i++) {
+            if (opciones[i].checked==true) {
+              accion=opciones[i].value;
+            }
+          }
+          if (accion=="compra") {
+            document.getElementById("accion").value=1;
+          }else {
+            document.getElementById("accion").value=0;
+          }
+          alert(document.getElementById("accion").value);
+        }
 
         function modificar(idp)
         {
           document.getElementById('bandera').value='enviar';
           document.getElementById('baccion').value=idp;
-
          document.supermarket.submit();
         }
         function kardex(id)
         {
          document.location.href='kardex.php?id='+id;
+        }
+        function subtotal()
+        {
+          var sub=(document.getElementById('vunitarioK').value  * document.getElementById('vunitarioK').value);
+          alert(sub);
+          document.getElementById('subtotalK').value=sub;
+
+
         }
         function confirmar(id,op)
         {
@@ -95,7 +139,6 @@
               </div>
             </div>
             <!-- /menu profile quick info -->
-
             <br />
 
             <!-- sidebar menu -->
@@ -158,14 +201,14 @@
       <form id="supermarket" name="supermarket" action="" method="post">
       <input type="hidden" name="bandera" id="bandera">
       <input type="hidden" name="baccion" id="baccion">
+      <input type="hidden" name="accion" id="accion" value="1">
       <input type="hidden" name="user" id="user">
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Productos<small>Listado de los productos.</small></h3>
+                <h3>Kardex del producto:  <?php echo $nombre;?></h3>
               </div>
-
             </div>
 
             <div class="clearfix"></div>
@@ -175,7 +218,12 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Productos<small>Listado</small></h2>
+                    <h2>Kardex<small>Listado</small></h2>
+                    <br>
+                    <br>
+                    <span  data-toggle='modal' data-target='#myModal'>
+                      <button type="button" class="btn btn-primary" data-toggle='tooltip' data-placement='right' title='Ingresos o Salidas' >Acciones</button>
+                    </span>
 
                     <div class="clearfix"></div>
                   </div>
@@ -186,7 +234,6 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-
                           <th>Codigo</th>
                           <th>Producto</th>
                           <th>Categoria</th>
@@ -201,7 +248,7 @@
                       <tbody>
                         <?php
                       include 'conexion.php';
-                      $result = $conexion->query("select p.idproductos as idprod, p.codigoproductos as codigo, p.nombreproductos as nombre,p.precioproductos as precio,p.cantidadproductos as cantidad, c.categoria as categoria,p.disponibilidad as disp, pr.nombre as proveedor from productos as p, categorias as c, proveedores as pr where p.idcategoria=c.idcategoria and p.idproveedor=pr.idproveedor");
+                      $result = $conexion->query("select p.idproductos as idprod, p.codigoproductos as codigo, p.nombreproductos as nombre,p.precioproductos as precio,p.cantidadproductos as cantidad, c.categoria as categoria,p.disponibilidad as disp, pr.nombre as proveedor from productos as p, categorias as c, proveedores as pr where p.idcategoria=c.idcategoria and p.idproveedor=pr.idproveedor and idproductos=".$idproducto);
                       if ($result) {
                         while ($fila = $result->fetch_object()) {
                           echo "<tr>";
@@ -211,6 +258,7 @@
                           echo "<td>".$fila->categoria."</td>";
                           echo "<td>".$fila->proveedor."</td>";
                           echo "<td>".$fila->cantidad."</td>";
+
                     if ($fila->disp==1) {
                        echo "<td>Disponible.</td>";
                         //echo "<td><img src='imagenes.php?id=" . $fila->idempleados . "&tipo=empleado' width=100 height=180></td>";
@@ -241,6 +289,54 @@
           </div>
         </div>
       </form>
+      <!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Ingresos/Salidas-- <?php echo $nombre; ?></h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label >Fecha:</label>
+          <input type="date" class="form-control" id="fechaK">
+      </div>
+      <div class="form-group">
+        <label >Descripcion:</label>
+        <input type="text" class="form-control" id="descripcionK">
+    </div>
+    <div class="form-group">
+      <label for="compra" >Ingreso:</label>
+      <input type="radio" class="radio-inline" id="accion2" name="accion" value="compra" checked onclick="llamado()">
+      <label >Salida:</label>
+      <input type="radio" class="radio-inline" id="accion2" name="accion" value="venta" onclick="llamado()">
+  </div>
+  <div class="form-group">
+    <label >Cantidad:</label>
+    <input type="number" class="form-control" id="cantidadK" min="1" placeholder="0" onkeyup="subtotal()">
+</div>
+<div class="form-group">
+  <label >Valor Unitario:</label>
+  <input type="number" class="form-control" step="0.01" min="0.01" id="vunitarioK" placeholder="$0.00" onkeyup="subtotal()">
+</div>
+<div class="form-group">
+  <label >Subtotal:</label>
+  <input type="number" class="form-control" step="0.01" min="0.01" id="subtotalK" placeholder="$0.00" readonly>
+
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default"  onclick="ejecutar()">Completar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+      </div>
+    </div>
+
+  </div>
+</div>
         <!-- /page content -->
 
         <!-- footer content -->
@@ -288,21 +384,40 @@ include "conexion.php";
 
 $bandera = $_REQUEST["bandera"];
 $baccion = $_REQUEST["baccion"];
-$user = $_REQUEST["user"];
+$fecha = $_REQUEST["fechaK"];
+$descripcion = $_REQUEST["descripcionK"];
+$accion = $_REQUEST["accion"];
+$cantidad = $_REQUEST["cantidadK"];
+$vunitario = $_REQUEST["vunitarioK"];
 if ($bandera == 'enviar') {
     echo "<script type='text/javascript'>";
     echo "document.location.href='editproductos.php?id=" . $baccion . "';";
     echo "</script>";
     # code...
 }
-if ($bandera == "desactivar") {
-  $consulta = "UPDATE productos SET disponibilidad = '0' WHERE idproductos = '".$baccion."'";
+if ($bandera=="add") {
+  //codigo para guardar en la tabla kardex
+  if ($accion==1) {
+    //va a ser compra
+    $consulta  = "INSERT INTO kardex VALUES('null','" . $concepto . "','" . $fecha . "','" . $idanio . "')";
     $resultado = $conexion->query($consulta);
     if ($resultado) {
-        msg("Exito");
-    } else {
-        msg("No Exito");
+        msg("Exito Partida");
+      } else {
+        msg("No Exito Partida");
     }
+  }
+  else {
+    //va a ser una venta
+    $consulta  = "INSERT INTO kardex VALUES('".$numeroPartida1."','" . $concepto . "','" . $fecha . "','" . $idanio . "')";
+    $resultado = $conexion->query($consulta);
+    if ($resultado) {
+        msg("Exito Partida");
+      } else {
+        msg("No Exito Partida");
+    }
+  }
+
 }
 if ($bandera == "activar") {
   $consulta = "UPDATE productos SET disponibilidad = '1' WHERE idproductos = '".$baccion."'";
