@@ -25,11 +25,17 @@
                     </ul>
                   </li>
 
-                  <li><a><i class="fa fa-user"></i> Productos <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-product-hunt"></i> Productos <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="productos.php">Nuevo</a></li>
                       <li><a href="listaproductos.php">Lista</a></li>
                       <li><a href="categorias.php">Categorías</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-list"></i> Kardex <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="productos.php">Compra</a></li>
+                      <li><a href="listaproductos.php">Venta</a></li>
                     </ul>
                   </li>
 
