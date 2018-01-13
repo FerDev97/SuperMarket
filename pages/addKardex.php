@@ -44,18 +44,8 @@ if ($bandera=="add") {
   }
   if ($accion==1) {
     //va a ser compra
-
-    msg($fecha);
-    msg($descripcion);
-    msg($accion);
-    msg($cantidad);
-    msg($vunitario);
-    msg($subtotalK);
-
-
     $cantidadP=$cantidadP+$cantidad;
     $nuevoValorTotalS=$valorTotalAnterior+$subtotalK;
-
     $valorUnitarioS=$nuevoValorTotalS/$cantidadP;
     $consulta3  = "INSERT INTO kardex VALUES('null','" . $idproducto . "','" . $fecha . "','" . $descripcion . "','" . $accion . "','" . $cantidad . "','" . $vunitario . "','" . $cantidadP . "','" . $valorUnitarioS . "','" . $nuevoValorTotalS . "')";
     $resultado3 = $conexion->query($consulta3);
@@ -64,9 +54,7 @@ if ($bandera=="add") {
         //AHORA A ACTUALIZAR LOS NUEVOS VALORES QUE TENDRA DICHO Producto
         //nuevo precio del productos
         $tporcen=$valorUnitarioS*$margen;
-
         $nuevoPrecio=$vunitario/(1-$margen);
-
         $consulta4="UPDATE productos set cantidadproductos='".$cantidadP."',preciocompra='".$vunitario."',precioventa='".$nuevoPrecio."' where idproductos='".$idproducto."'";
         $resultado = $conexion->query($consulta4);
         if ($resultado) {
@@ -78,8 +66,7 @@ if ($bandera=="add") {
       } else {
         msg(mysqli_error($conexion));
     }
-  }
-  else {
+  }else {
     //va a ser una venta
     $consulta  = "INSERT INTO kardex VALUES('".$numeroPartida1."','" . $concepto . "','" . $fecha . "','" . $idanio . "')";
     $resultado = $conexion->query($consulta);
