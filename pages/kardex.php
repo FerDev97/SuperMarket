@@ -84,7 +84,6 @@
         function subtotal()
         {
           var sub=(document.getElementById('vunitarioK').value  * document.getElementById('vunitarioK').value);
-          alert(sub);
           document.getElementById('subtotalK').value=sub;
 
 
@@ -389,6 +388,7 @@ $descripcion = $_REQUEST["descripcionK"];
 $accion = $_REQUEST["accion"];
 $cantidad = $_REQUEST["cantidadK"];
 $vunitario = $_REQUEST["vunitarioK"];
+$subtotalK = $_REQUEST["subtotalK"];
 if ($bandera == 'enviar') {
     echo "<script type='text/javascript'>";
     echo "document.location.href='editproductos.php?id=" . $baccion . "';";
@@ -397,14 +397,44 @@ if ($bandera == 'enviar') {
 }
 if ($bandera=="add") {
   //codigo para guardar en la tabla kardex
+  //Primero obgtendremos el numero de productos disponibles del que queremos Agregar
+  $consulta="select * from productos where idproductos=".$idproducto;
+  $resultado=$conexion->query($consulta);
+  if ($resultado) {
+    while ($fila=$resultado->fetch_object()) {
+      $cantidadP=$fila->cantidadproductos;
+      $margen=($fila->margen)/100;
+      msg("Margen: ".$margen);
+    }
+  }
+  //Obtendremos el ultimo valor total del saldo en el kardex
+  $consulta1="select * from kardex where idproducto='".$idproducto."' order by idkardex";
+  $resultado1=$conexion->query($consulta1);
+  if ($resultado1) {
+    while ($fila1=$resultado1->fetch_object()) {
+      $valorTotalAnterior=$fila1->vtotals;
+      msg("Valor T Anterior:".$valorTotalAnterior);
+    }
+  }else {
+      msg(mysqli_error($conexion));
+  }
+  if($resultado1->num_rows<1)
+  {
+    $valorTotalAnterior=0;
+    msg("Valor T Anterior:".$valorTotalAnterior);
+  }
   if ($accion==1) {
     //va a ser compra
-    $consulta  = "INSERT INTO kardex VALUES('null','" . $concepto . "','" . $fecha . "','" . $idanio . "')";
-    $resultado = $conexion->query($consulta);
-    if ($resultado) {
-        msg("Exito Partida");
+    msg("Va a ser compra");
+    $cantidadP=$cantidadP+$cantidad;
+    $nuevoValorTotalS=$valorTotalAnterior+$subtotalK;
+    $valorUnitarioS=$cantidadP/$nuevoValorTotalS;
+    $consulta3  = "INSERT INTO kardex VALUES('null','" . $idproducto . "','" . $fecha . "','" . $descripcion . "','" . $accion . "','" . $cantidad . "','" . $vunitario . "','" . $cantidadP . "','" . $valorUnitarioS . "','" . $nuevoValorTotalS . "')";
+    $resultado3 = $conexion->query($consulta3);
+    if ($resultado3) {
+        msg("Exito Compra");
       } else {
-        msg("No Exito Partida");
+        msg(mysqli_error($conexion));
     }
   }
   else {
@@ -433,7 +463,7 @@ function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
-    echo "document.location.href='listaproductos.php';";
+    //echo "document.location.href='kardex.php';";
     echo "</script>";
 }
 ?>
