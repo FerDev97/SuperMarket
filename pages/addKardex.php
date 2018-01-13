@@ -2,7 +2,7 @@
 include "conexion.php";
 
 $bandera = $_REQUEST["bandera"];
-$baccion = $_REQUEST["baccion"];
+$idproducto = $_REQUEST["id"];
 $fecha = $_REQUEST["fechaR"];
 $descripcion = $_REQUEST["descripcionR"];
 $accion = $_REQUEST["accion"];
@@ -66,7 +66,7 @@ if ($bandera=="add") {
         //AHORA A ACTUALIZAR LOS NUEVOS VALORES QUE TENDRA DICHO Producto
         //nuevo precio del productos
         $nuevoPrecio=($valorUnitarioS*$margen)+$valorUnitarioS;
-        $consulta4="UPDATE productos set cantidadproductos='".$cantidadP."',precioproductos='".$nuevoPrecio."'";
+        $consulta4="UPDATE productos set cantidadproductos='".$cantidadP."',precioproductos='".$nuevoPrecio."'where idproducto='".$idproducto."'";
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito Producto");
