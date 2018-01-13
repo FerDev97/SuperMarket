@@ -12,7 +12,11 @@ if ($result) {
         $nombreproductoR   = $fila->nombreproductos;
         $precioproductoR = $fila->precioproductos;
         $cantidadproductoR   = $fila->cantidadproductos;
+<<<<<<< HEAD
+        $fotoR  = $fila->foto;
+=======
         $imagenR  = $fila->foto;
+>>>>>>> 84fc5978f2d8897aea32d968165d5c5cdfb602b0
         $idcategoriaR  = $fila->idcategoria;
         $disponibilidadR  = $fila->disponibilidad;
         $stockminR  = $fila->stockmin;
@@ -379,7 +383,7 @@ if ($bandera == "add") {
       fclose($fp);
       //escapar los caracteres
       $data      = mysqli_real_escape_string($conexion, $data);
-      $consulta  = "UPDATE productos  set codigoproductos='" . $codigoProducto . "',nombreproductos='" . $nombreProducto . "',foto='" . $data . "',tipofoto='" . $tipo . "',idcategoria='" . $categoria  . "',stockmin='" . $stockMin . "',idproveedor='" . $proveedor . "',margen='" . $margen . "',descripcion='" . $descripcion . "' where idproductos='"  . $baccion ."'";
+      $consulta  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',foto='".$data."',tipofoto='".$tipo."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='1'";
       msg($consulta);
       $resultado = $conexion->query($consulta);
       if ($resultado) {
