@@ -261,7 +261,6 @@ if ($result) {
                         <span class="fa fa-commenting form-control-feedback left" aria-hidden="true"></span>
                       </div>
                       <div class="form-group">
-
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
@@ -277,7 +276,6 @@ if ($result) {
                           <button class="btn btn-primary" type="reset">Cancelar</button>
                         </div>
                       </div>
-
                     </form>
                   </div>
                 </div>
@@ -287,7 +285,7 @@ if ($result) {
    <div class="x_panel">
      <div class="x_title">
        <?php
-         echo "<img src='imagenes.php?id=" . $id . "&tipo=producto' width=200 height=180 align='center' style='margin-top:30px;'> ";
+         echo "<img src='imagenes.php?id=" . $id . "&tipo=producto' width=550 height=450 align='center' style='margin-top:30px;'> ";
         ?>
      </div>
    </div>

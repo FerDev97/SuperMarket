@@ -6,6 +6,7 @@
     if ($resultado) {
       while ($fila=$resultado->fetch_object()) {
         $nombre=$fila->nombreproductos;
+        $pventa=$fila->precioventa;
       }
     }
 
@@ -74,10 +75,14 @@
           }
           if (accion=="compra") {
             document.getElementById("accion").value=1;
+              document.getElementById("vunitarioK").value="";
+              document.getElementById("vunitarioK").readOnly=false;
           }else {
             document.getElementById("accion").value=0;
+            document.getElementById("vunitarioK").value=document.getElementById("pventa").value;
+            document.getElementById("vunitarioK").readOnly=true;
           }
-          alert(document.getElementById("accion").value);
+
         }
 
         function modificar(idp)
@@ -210,6 +215,7 @@
       <input type="hidden" name="bandera" id="bandera">
       <input type="hidden" name="baccion" id="baccion" value="<?php echo $idproducto; ?>">
       <input type="hidden" name="accion" id="accion" value="1">
+      <input type="hidden" name="pventa" id="pventa" value="<?php echo $pventa; ?>">
       <input type="hidden" name="fecha" id="fechaR">
       <input type="hidden" name="fecha" id="descripcionR">
       <input type="hidden" name="fecha" id="cantidadR">
@@ -270,7 +276,7 @@
                         </tr>
                         <?php
                       include 'conexion.php';
-                      $result = $conexion->query("select * from kardex");
+                      $result = $conexion->query("select * from kardex where idproducto=".$idproducto);
                       if ($result) {
                         while ($fila = $result->fetch_object()) {
                           echo "<tr>";

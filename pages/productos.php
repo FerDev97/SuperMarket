@@ -347,7 +347,7 @@ if ($bandera == "add") {
         msg($margen);
         msg($descripcion);
         $consulta  = "INSERT INTO productos VALUES('null','" . $codigoProducto . "','" . $nombreProducto . "',' 0 ',' 0 ','" . $data . "','" . $tipo . "','" . $categoria  . "',' 0
-        ','" . $stockMin . "','" . $proveedor . "','" . $margen . "','" . $descripcion . "')";
+        ','" . $stockMin . "','" . $proveedor . "','" . $margen . "','" . $descripcion . "','0')";
         msg($consulta);
         $resultado = $conexion->query($consulta);
         if ($resultado) {
