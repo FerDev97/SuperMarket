@@ -247,47 +247,55 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Codigo</th>
-                          <th>Producto</th>
-                          <th>Categoria</th>
-                          <th>Proveedor</th>
-                          <th>Stock</th>
-                          <th>Estado</th>
-                          <th>Activar/Desactivar</th>
-                          <th>Modificar</th>
-                          <th>Kardex</th>
+                          <th>Fecha</th>
+                          <th>Descripcion</th>
+                          <th colspan="3">Entradas</th>
+                          <th colspan="3">Salidas</th>
+                          <th colspan="3">Saldo</th>
                         </tr>
                       </thead>
                       <tbody>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td class="warning">Cantidad</td>
+                          <td class='danger'>V.Unitario</td>
+                          <td class='info'>V.Total</td>
+                          <td class="warning">Cantidad</td>
+                          <td class='danger'>V.Unitario</td>
+                          <td class='info'>V.Total</td>
+                          <td class="warning">Cantidad</td>
+                          <td class='danger'>V.Unitario</td>
+                          <td class='info'>V.Total</td>
+                        </tr>
                         <?php
                       include 'conexion.php';
-                      $result = $conexion->query("select p.idproductos as idprod, p.codigoproductos as codigo, p.nombreproductos as nombre,p.precioproductos as precio,p.cantidadproductos as cantidad, c.categoria as categoria,p.disponibilidad as disp, pr.nombre as proveedor from productos as p, categorias as c, proveedores as pr where p.idcategoria=c.idcategoria and p.idproveedor=pr.idproveedor and idproductos=".$idproducto);
+                      $result = $conexion->query("select * from kardex");
                       if ($result) {
                         while ($fila = $result->fetch_object()) {
                           echo "<tr>";
-                          $producto=$fila->idprod;
-                          echo "<td>".$fila->codigo."</td>";
-                          echo "<td>".$fila->nombre."</td>";
-                          echo "<td>".$fila->categoria."</td>";
-                          echo "<td>".$fila->proveedor."</td>";
-                          echo "<td>".$fila->cantidad."</td>";
-
-                    if ($fila->disp==1) {
-                       echo "<td>Disponible.</td>";
-                        //echo "<td><img src='imagenes.php?id=" . $fila->idempleados . "&tipo=empleado' width=100 height=180></td>";
-                       echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $producto . ",1);><i class='fa fa-remove'></i>
-                          </button></td>";
-                    }else
-                    {
-                       echo "<td>No disponible.</td>";
-                        //echo "<td><img src='imagenes.php?id=" . $fila->idempleados . "&tipo=empleado' width=100 height=180></td>";
-                       echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $producto . ",2);><i class='fa fa-check'></i>
-                          </button></td>";
-                    }
-                         echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=modificar(" . $producto . ");><i class='fa fa-edit'></i>
-                          </button></td>";
-                          echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=kardex(" . $producto . ");><i class='fa fa-list'></i>
-                           </button></td>";
+                          echo "<td>".$fila->fecha."</td>";
+                          echo "<td>".$fila->descripcion."</td>";
+                          if ($fila->movimiento==1){
+                            echo "<td class='warning'>".$fila->cantidad."</td>";
+                            echo "<td class='danger'>".$fila->vunitario."</td>";
+                            $total=($fila->cantidad)*$fila->vunitario;
+                            echo "<td class='info'>".$total."</td>";
+                            echo "<td class='warning'>0</td>";
+                            echo "<td class='danger'>0</td>";
+                            echo "<td class='info'>0</td>";
+                          }else {
+                            echo "<td class='warning'>0</td>";
+                            echo "<td class='danger'>0</td>";
+                            echo "<td class='info'>0</td>";
+                            echo "<td class='warning'>".$fila->cantidad."</td>";
+                            echo "<td class='danger'>".$fila->vunitario."</td>";
+                            $total=($fila->cantidad)*$fila->vunitario;
+                            echo "<td class='info'>".$total."</td>";
+                          }
+                          echo "<td class='warning'>".$fila->cantidads."</td>";
+                          echo "<td class='danger'>".$fila->vunitarios."</td>";
+                          echo "<td class='info'>".$fila->vtotals."</td>";
 
                           echo "</tr>";
                            }

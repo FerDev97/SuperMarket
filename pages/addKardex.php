@@ -65,9 +65,9 @@ if ($bandera=="add") {
         //nuevo precio del productos
         $tporcen=$valorUnitarioS*$margen;
 
-        $nuevoPrecio=($tporcen)+$valorUnitarioS;
+        $nuevoPrecio=$vunitario/(1-$margen);
 
-        $consulta4="UPDATE productos set cantidadproductos='".$cantidadP."',precioproductos='".$nuevoPrecio."'where idproductos='".$idproducto."'";
+        $consulta4="UPDATE productos set cantidadproductos='".$cantidadP."',preciocompra='".$vunitario."',precioventa='".$nuevoPrecio."' where idproductos='".$idproducto."'";
         $resultado = $conexion->query($consulta4);
         if ($resultado) {
           //  msg("Exito Producto");
