@@ -25,7 +25,6 @@ if ($bandera=="add") {
     while ($fila=$resultado->fetch_object()) {
       $cantidadP=$fila->cantidadproductos;
       $margen=($fila->margen)/100;
-      msg("Margen: ".$margen);
     }
   }
   //Obtendremos el ultimo valor total del saldo en el kardex
@@ -34,44 +33,47 @@ if ($bandera=="add") {
   if($resultado1->num_rows<1)
   {
     $valorTotalAnterior=0;
-    msg("Valor T Anterior:".$valorTotalAnterior);
   }else {
     if ($resultado1) {
       while ($fila1=$resultado1->fetch_object()) {
         $valorTotalAnterior=$fila1->vtotals;
-        msg("Valor T Anterior:".$valorTotalAnterior);
       }
     }else {
         msg(mysqli_error($conexion));
     }
   }
-
-
   if ($accion==1) {
     //va a ser compra
-    msg("Va a ser compra");
+
     msg($fecha);
     msg($descripcion);
     msg($accion);
     msg($cantidad);
     msg($vunitario);
     msg($subtotalK);
+
+
     $cantidadP=$cantidadP+$cantidad;
     $nuevoValorTotalS=$valorTotalAnterior+$subtotalK;
-    $valorUnitarioS=$cantidadP/$nuevoValorTotalS;
+
+    $valorUnitarioS=$nuevoValorTotalS/$cantidadP;
     $consulta3  = "INSERT INTO kardex VALUES('null','" . $idproducto . "','" . $fecha . "','" . $descripcion . "','" . $accion . "','" . $cantidad . "','" . $vunitario . "','" . $cantidadP . "','" . $valorUnitarioS . "','" . $nuevoValorTotalS . "')";
     $resultado3 = $conexion->query($consulta3);
     if ($resultado3) {
-        msg("Exito Compra");
+        //msg("Exito Compra");
         //AHORA A ACTUALIZAR LOS NUEVOS VALORES QUE TENDRA DICHO Producto
         //nuevo precio del productos
-        $nuevoPrecio=($valorUnitarioS*$margen)+$valorUnitarioS;
-        $consulta4="UPDATE productos set cantidadproductos='".$cantidadP."',precioproductos='".$nuevoPrecio."'where idproducto='".$idproducto."'";
-        $resultado = $conexion->query($consulta);
+        $tporcen=$valorUnitarioS*$margen;
+
+        $nuevoPrecio=($tporcen)+$valorUnitarioS;
+
+        $consulta4="UPDATE productos set cantidadproductos='".$cantidadP."',precioproductos='".$nuevoPrecio."'where idproductos='".$idproducto."'";
+        $resultado = $conexion->query($consulta4);
         if ($resultado) {
-            msg("Exito Producto");
+          //  msg("Exito Producto");
+          header('Location:kardex.php?id='.$idproducto);
         } else {
-            msg("No Exito Producto");
+            //msg("No Exito Producto");
         }
       } else {
         msg(mysqli_error($conexion));
@@ -82,9 +84,9 @@ if ($bandera=="add") {
     $consulta  = "INSERT INTO kardex VALUES('".$numeroPartida1."','" . $concepto . "','" . $fecha . "','" . $idanio . "')";
     $resultado = $conexion->query($consulta);
     if ($resultado) {
-        msg("Exito Partida");
+        //msg("Exito Partida");
       } else {
-        msg("No Exito Partida");
+        //msg("No Exito Partida");
     }
   }
 
@@ -103,7 +105,7 @@ function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
-    //echo "document.location.href='kardex.php';";
+    echo "document.location.href='kardex.php?id=".$idproducto.";";
     echo "</script>";
 }
 ?>
