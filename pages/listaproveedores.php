@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -96,7 +97,11 @@
             <br />
 
             <!-- sidebar menu -->
-            <?php include"menu.php"; ?>
+            <?php   if ($_SESSION["tipousuario"]=="invitado") {
+                include "menuCliente.php";
+              }else {
+                include "menu.php";
+              } ?>
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
@@ -120,11 +125,14 @@
 
         <!-- top navigation -->
         <div class="top_nav">
-          <?php   if ($_SESSION["tipousuario"]=="invitado") {
-              include "menuCliente.php";
-            }else {
-              include "menu.php";
-            } ?>
+          <?php
+          if ($_SESSION["tipousuario"]=="invitado") {
+            include "navBarInvitado.php";
+          }else {
+            include "navBarUser.php";
+          }
+           ?>
+          
         </div>
         <!-- /top navigation -->
 

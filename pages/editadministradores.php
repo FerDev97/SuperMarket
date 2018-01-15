@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php
 $id = $_REQUEST["id"];
 include "conexion.php";

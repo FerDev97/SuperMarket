@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php
 include "conexion.php";
 $result = $conexion->query("select * from empleados where idempleados=" . $id);
