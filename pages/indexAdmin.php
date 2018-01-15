@@ -72,7 +72,6 @@ include "conexion.php";
             <div class="navbar nav_title" style="border: 0;">
               <a href="indexAdmin.php" class="site_title"><i class="fa fa-shopping-basket"></i><span>Super Market</span></a>
             </div>
-
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
