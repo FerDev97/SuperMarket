@@ -1,4 +1,7 @@
 <?php
+session_start();
+if ($_SESSION["tipoUsuario"]=="Administrador") {
+
 include "conexion.php";
         $consulta  = "select count(idadministradores) as administradores from administradores";
         $resultado = $conexion->query($consulta);
@@ -60,7 +63,7 @@ include "conexion.php";
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title"><i class="fa fa-star"></i> <span>Super Market</span></a>
+              <a href="indexAdmin.php" class="site_title"><i class="fa fa-shopping-basket"></i><span>Super Market</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -206,3 +209,19 @@ include "conexion.php";
 
   </body>
 </html>
+<?php
+}else {
+//$errorLogin=$_GET["error"];
+//if($errorLogin=="login") {
+if ($_SESSION["tipoUsuario"]=="Cliente" || $_SESSION["tipoUsuario"]=="Empleado" ) {
+  header('Location: pages/indexCliente.php');
+}else {
+  //session como invitado
+  $_SESSION["usuario"]="invitado";
+  $_SESSION["tipoUsuario"]="cliente";
+  msg($_SESSION["usuario"]);
+  msg($_SESSION["tipoUsuario"]);
+  header('Location: pages/indexCliente.php');
+}
+}
+ ?>
