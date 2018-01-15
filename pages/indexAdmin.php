@@ -21,6 +21,14 @@ include "conexion.php";
           $empleados=$fila->empleados;
     }
   }
+
+  $consulta  = "select count(idproductos) as productos from productos";
+  $resultado = $conexion->query($consulta);
+  if ($resultado) {
+  while ($fila = $resultado->fetch_object()) {
+    $productos=$fila->productos;
+}
+}
            ?>
 
 <!DOCTYPE html>
@@ -71,7 +79,7 @@ include "conexion.php";
                 <img src="images/img.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>Bienvenido!,</span>
+                <span>Bienvenido!</span>
                 <h2>Administrador</h2>
               </div>
             </div>
@@ -129,7 +137,7 @@ include "conexion.php";
 
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Clientes</span>
+              <span class="count_top"><i class="fa fa-user"></i> Total de Clientes</span>
               <div class="count"><?php echo $clientes ?></div>
             </div>
 
@@ -140,7 +148,7 @@ include "conexion.php";
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-shopping-bag"></i> Total de Productos.</span>
-              <div class="count">100</div>
+              <div class="count"><?php echo $productos ?></div>
 
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
