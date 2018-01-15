@@ -1,7 +1,6 @@
 <?php
 session_start();
-if ($_SESSION["tipoUsuario"]=="Administrador") {
-
+if ($_SESSION["tipousuario"]=="Administrador") {
 include "conexion.php";
         $consulta  = "select count(idadministradores) as administradores from administradores";
         $resultado = $conexion->query($consulta);
@@ -98,34 +97,13 @@ include "conexion.php";
 
         <!-- top navigation -->
         <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Fernando
-
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Ajustes</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Ayuda</a></li>
-                    <li><a href="login.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          <?php
+          if ($_SESSION["tipousuario"]=="invitado") {
+            include "navBarInvitado.php";
+          }else {
+            include "navBarUser.php";
+          }
+           ?>
         </div>
         <!-- /top navigation -->
 
@@ -211,24 +189,24 @@ include "conexion.php";
     <!-- bootstrap-daterangepicker -->
     <script src="../vendors/moment/min/moment.min.js"></script>
     <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-
   </body>
 </html>
 <?php
 }else {
 //$errorLogin=$_GET["error"];
 //if($errorLogin=="login") {
-if ($_SESSION["tipoUsuario"]=="Cliente" || $_SESSION["tipoUsuario"]=="Empleado" ) {
-  header('Location: pages/indexCliente.php');
+if ($_SESSION["tipousuario"]=="Cliente" || $_SESSION["tipousuario"]=="Empleado" ) {
+header('Location: pages/indexCliente.php');
+echo "Soy un Cliente o un Empleado.";
 }else {
   //session como invitado
   $_SESSION["usuario"]="invitado";
-  $_SESSION["tipoUsuario"]="cliente";
-  msg($_SESSION["usuario"]);
-  msg($_SESSION["tipoUsuario"]);
+  $_SESSION["tipousuario"]="cliente";
+  // msg($_SESSION["usuario"]);
+  // msg($_SESSION["tipoUsuario"]);
+  echo "Soy un invitado.";
   header('Location: pages/indexCliente.php');
 }
 }

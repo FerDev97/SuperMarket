@@ -1,17 +1,15 @@
 <?php session_start();
-if ($_SESSION["tipoUsuario"]=="Administrador") {
+if ($_SESSION["tipousuario"]=="Administrador") {
 	Header("Location: pages/indexAdmin.php");
 }else {
 	//$errorLogin=$_GET["error"];
 	//if($errorLogin=="login") {
-	if ($_SESSION["tipoUsuario"]=="Cliente" || $_SESSION["tipoUsuario"]=="Empleado" ) {
+	if ($_SESSION["tipousuario"]=="Cliente" || $_SESSION["tipousuario"]=="Empleado" ) {
 		header('Location: pages/indexCliente.php');
 	}else {
 		//session como invitado
-		$_SESSION["usuario"]="invitado";
-		$_SESSION["tipoUsuario"]="cliente";
-		msg($_SESSION["usuario"]);
-		msg($_SESSION["tipoUsuario"]);
+		$_SESSION["tipousuario"]="invitado";
+		$_SESSION["usuario"]="Invitado";
 		header('Location: pages/indexCliente.php');
 	}
 }

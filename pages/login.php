@@ -1,3 +1,6 @@
+<?php
+$aux=$_REQUEST["aux"];
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -20,6 +23,18 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <script type="text/javascript">
+      function verificar()
+      {
+        var user=document.getElementById("usuario").value;
+        var contra=document.getElementById("contra").value;
+        if (user=="" || contra=="") {
+          alert("Por favor ingrese todos los campos.");
+        }else {
+          location.href ="checkLogin.php?usuario="+user+"&contra="+contra;
+        }
+      }
+    </script>
   </head>
 
   <body class="login">
@@ -30,24 +45,27 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form action="">
               <h1>Iniciar Sesion</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Usuario" required="" value=""/>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" name="contra" id="contra" class="form-control" placeholder="Contraseña" required="" value=""/>
               </div>
+              <?php
+              if (isset($aux)) {
+                echo "<label style='color:red;'>Usuario o contraseña invalidos.</label>";
+              }
+              ?>
               <div>
-                <a class="btn btn-default submit" href="index.php" aling="center">Entrar</a>
-
+                <button type="button" class="btn btn-default submit" aling="center" onclick="verificar()">Entrar</button>
               </div>
-
               <div class="clearfix"></div>
 
               <div class="separator">
                 <p class="change_link">¿Aún no estás en SuperMarket?
-                  <a href="clientes.php" class="to_register"> Registrarte </a>
+                  <a href="Rclientes.php" class="to_register"> Registrarte </a>
                 </p>
 
                 <div class="clearfix"></div>
