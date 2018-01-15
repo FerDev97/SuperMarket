@@ -97,7 +97,11 @@
             <br />
 
             <!-- sidebar menu -->
-            <?php include"menu.php"; ?>
+            <?php   if ($_SESSION["tipousuario"]=="invitado") {
+                include "menuCliente.php";
+              }else {
+                include "menu.php";
+              } ?>
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->

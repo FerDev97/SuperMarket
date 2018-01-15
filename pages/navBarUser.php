@@ -1,14 +1,17 @@
-<?php session_start(); ?>
+
 <div class="nav_menu">
   <nav>
     <div class="nav toggle">
       <a id="menu_toggle"><i class="fa fa-bars"></i></a>
     </div>
-
     <ul class="nav navbar-nav navbar-right">
       <li class="">
+        <a id="menu_toggle"><i class="fa fa-shopping-cart"></i></a>
+      </li>
+      <li class="">
+
         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <img src="images/img.jpg" alt=""><?php echo $_SESSION["id"];?>
+          <img src="images/img.jpg" alt=""><?php echo $_SESSION["usuario"];?>
           <span class=" fa fa-angle-down"></span>
         </a>
         <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -31,7 +34,7 @@
             </a>
           </li>
           <li><a href="javascript:;">Ayuda</a></li>
-          <li><a href="login.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
+          <li><a href="cerrarSesion.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
         </ul>
       </li>
     </ul>

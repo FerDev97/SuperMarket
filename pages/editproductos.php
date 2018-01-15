@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 $id = $_REQUEST["id"];
 include "conexion.php";
 $result = $conexion->query("select * from productos where idproductos=" . $id);
@@ -12,9 +12,7 @@ if ($result) {
         $nombreproductoR   = $fila->nombreproductos;
         $precioproductoR = $fila->precioproductos;
         $cantidadproductoR   = $fila->cantidadproductos;
-
         $fotoR  = $fila->foto;
-
         //$imagenR  = $fila->foto;
         $idcategoriaR  = $fila->idcategoria;
         $disponibilidadR  = $fila->disponibilidad;

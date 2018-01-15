@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	  
+
     <title>Super Market | </title>
 
     <!-- Bootstrap -->
@@ -32,7 +32,7 @@
     <link href="../build/css/custom.min.css" rel="stylesheet">
     <!--Scripts de validaciones-->
     <script type="text/javascript">
-      
+
       function verificar(){
           if(document.getElementById('nombreEmpleado').value=="" ||
             document.getElementById('apellidoEmpleado').value==""  ||
@@ -80,7 +80,11 @@
             <br />
 
             <!-- sidebar menu -->
-            <?php include "menu.php" ?>
+            <?php   if ($_SESSION["tipousuario"]=="invitado") {
+                include "menuCliente.php";
+              }else {
+                include "menu.php";
+              } ?>
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
@@ -104,34 +108,13 @@
 
         <!-- top navigation -->
         <div class="top_nav">
-          <div class="nav_menu">
-            <nav>
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-
-              <ul class="nav navbar-nav navbar-right">
-                <li class="">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Fernando
-
-                    <span class=" fa fa-angle-down"></span>
-                  </a>
-                  <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Perfil</a></li>
-                    <li>
-                      <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Ajustes</span>
-                      </a>
-                    </li>
-                    <li><a href="javascript:;">Ayuda</a></li>
-                    <li><a href="login.php"><i class="fa fa-sign-out pull-right"></i> Salir</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          <?php
+          if ($_SESSION["tipousuario"]=="invitado") {
+            include "navBarInvitado.php";
+          }else {
+            include "navBarUser.php";
+          }
+           ?>
         </div>
         <!-- /top navigation -->
 
@@ -164,7 +147,7 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Registro <small>Datos del empleado.</small></h2>
-                    
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -213,7 +196,7 @@
                         <span class="fa fa-compass form-control-feedback right" aria-hidden="true"></span>
                       </div>
 
-                     
+
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fotografía</label>
@@ -221,13 +204,13 @@
                           <input type="file" class="form-text" id="imagen" name="imagen" required accept="image/jpg,image/png,image/jpeg">
                         </div>
                       </div>
-                     
+
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                           <button type="button" class="btn btn-primary" onclick="verificar()">Agregar</button>
                           <button class="btn btn-primary" type="reset">Cancelar</button>
-                          
+
                         </div>
                       </div>
 
@@ -236,12 +219,12 @@
                 </div>
               </div>
  <!-- DIV PARA PONER EL MAPA PARA EmpleadoS-->
-            
+
               <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>MAPA <small>Mapa Empleado.</small></h2>
-                    
+
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -297,7 +280,7 @@
     <script src="../vendors/starrr/dist/starrr.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+
   </body>
 </html>
 
@@ -351,7 +334,7 @@ if ($bandera == "add") {
         {
           msg("Error Usuario.");
         }
-        
+
 }
 function msg($texto)
 {
