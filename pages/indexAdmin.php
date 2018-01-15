@@ -1,7 +1,6 @@
-<?php 
+<?php
 include "conexion.php";
         $consulta  = "select count(idadministradores) as administradores from administradores";
-        
         $resultado = $conexion->query($consulta);
         if ($resultado) {
         while ($fila = $resultado->fetch_object()) {
@@ -9,7 +8,6 @@ include "conexion.php";
             }
          }
          $consulta  = "select count(idclientes) as clientes from clientes";
-        
         $resultado = $conexion->query($consulta);
         if ($resultado) {
         while ($fila = $resultado->fetch_object()) {
@@ -17,14 +15,12 @@ include "conexion.php";
     }
   }
         $consulta  = "select count(idempleados) as empleados from empleados";
-        
         $resultado = $conexion->query($consulta);
         if ($resultado) {
         while ($fila = $resultado->fetch_object()) {
           $empleados=$fila->empleados;
     }
   }
-
            ?>
 
 <!DOCTYPE html>
@@ -46,7 +42,7 @@ include "conexion.php";
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
+
     <!-- bootstrap-progressbar -->
     <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
@@ -83,7 +79,7 @@ include "conexion.php";
 
             <br />
 
-           <?php 
+           <?php
             include "menu.php";
            ?>
           </div>
@@ -130,22 +126,22 @@ include "conexion.php";
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-lock"></i> Total de Administradores</span>
               <div class="count"><?php echo $administradores ?></div>
-              
+
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Clientes</span>
               <div class="count"><?php echo $clientes ?></div>
             </div>
-           
+
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Empleados</span>
               <div class="count"><?php echo $empleados ?></div>
-              
+
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-shopping-bag"></i> Total de Productos.</span>
               <div class="count">100</div>
-              
+
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> PRUEBA</span>
@@ -161,8 +157,8 @@ include "conexion.php";
 
         <!-- footer content -->
         <?php include 'footer.php'; ?>
-        
-          
+
+
         <!-- /footer content -->
       </div>
     </div>
@@ -207,7 +203,6 @@ include "conexion.php";
 
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
-	
+
   </body>
 </html>
-
