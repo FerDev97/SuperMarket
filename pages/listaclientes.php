@@ -34,6 +34,10 @@
           var url="/supermarket/pages/verMapa.php?lat="+lat+"&lon="+lon;
           window.open(url,"Nuevo","alwaysRaised=no");
         }
+        function llamarPagina(){
+          var url="reporteclientes.php";
+          window.open(url,"Nuevo","alwaysRaised=no,toolbar=no,menubar=no,status=no,resizable=no,width=400,height=300,location=no");
+        }
 
         function modificar(idc,idu)
         {
@@ -146,6 +150,9 @@
             <div class="page-title">
               <div class="title_left">
                 <h3>Clientes <small>Listado de los clientes.</small></h3>
+              </br>
+            </br>
+                <input type="button" class="btn btn-default" value="imprimir" onclick="llamarPagina()"/>
               </div>
 
             </div>
