@@ -206,7 +206,7 @@ echo "Soy un Cliente o un Empleado.";
   // msg($_SESSION["usuario"]);
   // msg($_SESSION["tipoUsuario"]);
   echo "Soy un invitado.";
-  header('Location: pages/indexCliente.php');
+  header('Location: indexCliente.php');
 }
 }
  ?>

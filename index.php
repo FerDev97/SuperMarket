@@ -8,8 +8,6 @@ if ($_SESSION["tipousuario"]=="Administrador") {
 		header('Location: pages/indexCliente.php');
 	}else {
 		//session como invitado
-		$_SESSION["tipousuario"]="invitado";
-		$_SESSION["usuario"]="Invitado";
 		header('Location: pages/indexCliente.php');
 	}
 }

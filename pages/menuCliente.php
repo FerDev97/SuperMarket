@@ -3,10 +3,10 @@
               <div class="menu_section">
                 <h3>Menu</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-lock"></i> Administradores <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-lock"></i> Todos los productos. <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="administradores.php">Nuevo</a></li>
-                      <li><a href="listaadministradores.php">Lista</a></li>
+
+                      <li><a href="todosloss.php">Lista</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-user"></i> Clientes <span class="fa fa-chevron-down"></span></a>

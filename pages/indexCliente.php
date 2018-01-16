@@ -1,6 +1,6 @@
 <?php
 session_start();
-if ($_SESSION["tipoUsuario"]=="Cliente" || $_SESSION["tipoUsuario"]=="Empleado" || $_SESSION["tipoUsuario"]=="invitado") {
+if ($_SESSION["tipousuario"]=="Cliente" || $_SESSION["tipousuario"]=="Empleado" || $_SESSION["tipousuario"]=="invitado") {
 include "conexion.php";
         $consulta  = "select count(idadministradores) as administradores from administradores";
         $resultado = $conexion->query($consulta);
