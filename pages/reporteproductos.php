@@ -63,15 +63,11 @@
       <br>
       <table border="1" class="formatocontenidotabla" cellspacing=0 cellpadding=0 rules="all">
         <tr>
-<<<<<<< HEAD
+
             <td width="55" align="center"><strong>N&deg;</strong></td>
             <td width="300" align="center"><strong>Nombre</strong></td>
             <td width="300" align="center"><strong>Categoria</strong></td>
-=======
-            <td width="50" align="center"><strong>N&deg;</strong></td>
-            <td width="355" align="center"><strong>Nombre</strong></td>
-            <td width="300" align="center"><strong>Descripcion</strong></td>
->>>>>>> 1fc5a77800008d08147f724a9839107ef17affbe
+
           </tr>
       </table>
     </div>
