@@ -63,9 +63,9 @@
       <br>
       <table border="1" class="formatocontenidotabla" cellspacing=0 cellpadding=0 rules="all">
         <tr>
-            <td width="50" align="center"><strong>N&deg;</strong></td>
+            <td width="55" align="center"><strong>N&deg;</strong></td>
             <td width="300" align="center"><strong>Nombre</strong></td>
-            <td width="300" align="center"><strong>Descripcion</strong></td>
+            <td width="300" align="center"><strong>Categoria</strong></td>
           </tr>
       </table>
     </div>
@@ -76,10 +76,12 @@
   include "conexion.php";
   $result =$conexion->query("select categoria,nombreproductos from productos,categorias where categorias.idcategoria=productos.idcategoria order by nombreproductos");
   $cuantasPaginas=mysqli_num_rows($result);
+  //$flor=explode(".",$cuantasPaginas*20);
   $flor=explode(".",$cuantasPaginas);
   $cuantasPaginas=$flor[0]+1;
   if ($result) {
     while($fila=$result->fetch_object()){
+      //for($i=0;i <=20 ;$i++){
       if($contador%$numeroFilas==0){
         encabezado();
         echo "<table border='1' class='formatocontenidotabla' cellspacing='0' cellpadding='0' rules='all'>";
@@ -87,7 +89,7 @@
       }
       $contador++;
       echo "<tr>";
-      echo "<td width='50' align='center'>".$contador."</td>";
+      echo "<td width='55' align='center'>".$contador."</td>";
       echo "<td width='300'>".$fila->nombreproductos."</td>";
       echo "<td width='300'>".$fila->categoria."</td>";
       echo"</tr>";
@@ -99,6 +101,7 @@
       }
     }
   }
+//}
   echo "</table>";
   echo "<div align='center' class='formatocontenidotabla'>".($numPagina+1)."de".ceil(number_format($cuantasPaginas/$numeroFilas,4))."</div>";
   ?>
