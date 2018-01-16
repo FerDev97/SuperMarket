@@ -5,27 +5,20 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-lock"></i> Todos los productos. <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-
-                      <li><a href="todosloss.php">Lista</a></li>
+                      <li><a href="todosP.php">Lista</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-user"></i> Clientes <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-user"></i> Categorias.<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="clientes.php">Nuevo</a></li>
-                      <li><a href="listaclientes.php">Lista</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-user"></i> Empleados <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="empleados.php">Nuevo</a></li>
-                      <li><a href="listaempleados.php">Lista</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-product-hunt"></i> Productos <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="productos.php">Nuevo</a></li>
-                      <li><a href="listaproductos.php">Lista</a></li>
-                      <li><a href="categorias.php">Categorías</a></li>
+                      <?php
+                      include "../config/conexion.php";
+                      $result = $conexion->query("select * from categorias where estado='1' group by categoria order by categoria");
+                      if ($result) {
+                          while ($fila = $result->fetch_object()) {
+                            echo "<li><a href='productosCategoria.php?idC=".$fila->idcategoria."&categoria=".$fila->categoria."'>".$fila->categoria."</a></li>";
+                          }
+                        }
+                      ?>
                     </ul>
                   </li>
                   <!-- <li><a><i class="fa fa-list"></i> Kardex <span class="fa fa-chevron-down"></span></a>
@@ -34,19 +27,7 @@
                       <li><a href="kventa.php">Venta</a></li>
                     </ul>
                   </li> -->
-                  <li><a><i class="fa fa-user"></i> Proveedores <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="proveedores.php">Nuevo</a></li>
-                      <li><a href="listaproveedores.php">Lista</a></li>
-                    </ul>
-                  </li>
 
-                  <li><a><i class="fa fa-shopping-basket"></i> Ventas <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="ventas.php">Nuevo</a></li>
-                      <li><a href="listaventas.php">Lista</a></li>
-                    </ul>
-                  </li>
                 </ul>
               </div>
             </div>
