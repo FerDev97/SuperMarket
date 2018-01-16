@@ -1,4 +1,30 @@
 <?php session_start(); ?>
+<?php
+$categoria=$_REQUEST["categoria"];
+$categoriaM=$_REQUEST["categoriaEditada"];
+$bandera=$_REQUEST["bandera"];
+$id=$_REQUEST["baccion"];
+
+include 'conexion.php';
+if (isset($categoria) && $bandera=="add") {
+        $consultaCat  = "INSERT INTO categorias VALUES('null','" . $categoria . "',1)";
+        $resultado = $conexion->query($consultaCat);
+      }
+      if (isset($categoriaM) && $bandera=="modificar") {
+        $consultac  = "UPDATE categorias set categoria='" . $categoriaM . "' where idcategoria=".$id;
+        $resultado = $conexion->query($consultac);
+      }
+      if ($bandera=="activar") {
+        $consultac  = "UPDATE categorias set estado='1' where idcategoria=".$id;
+        $resultado = $conexion->query($consultac);
+      }
+      if ($bandera=="desactivar") {
+        $consultac  = "UPDATE categorias set estado='0' where idcategoria=".$id;
+        $resultado = $conexion->query($consultac);
+      }
+
+
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,7 +53,6 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
-
     <script type="text/javascript">
       function llamarPaginaMapa(lat,lon)
         {
@@ -38,6 +63,7 @@
             if(document.getElementById('categoria').value=="" ){
               alert("Complete los campos.");
             }else{
+              alert(document.getElementById('categoria').value);
               document.getElementById('bandera').value="add";
               document.supermarket.submit();
             }
@@ -47,7 +73,6 @@
         {
           document.getElementById('baccion').value=idc;
           document.getElementById('nombreCategoria').value=categoria;
-
         }
         function ejecutar()
         {
@@ -59,7 +84,6 @@
             document.getElementById('categoriaEditada').value=document.getElementById('nombreCategoria').value;
             document.supermarket.submit();
           }
-
         }
 
 
@@ -239,8 +263,6 @@
                           echo "<tr>";
                           $categoria=$fila->idcategoria;
                           echo "<td>".$fila->categoria."</td>";
-
-
                           if ($fila->estado==1) {
                             echo "<td style='text-align:center;width:40px;'>Activo</td>";
                             echo "<td style='text-align:center;width:40px;'><button align='center' type='button' class='btn btn-default' onclick=confirmar(" . $categoria . ",1);><i class='fa fa-remove'></i>
@@ -252,10 +274,6 @@
                           }
                           echo "<td style='text-align:center;width:40px;'><button align='center' type='button' class='btn btn-default ' data-toggle='modal' data-target='#myModal' onclick=modificar(" . $categoria . ",'".$fila->categoria."');><i class='fa fa-edit'></i>
                            </button></td>";
-
-
-
-
                           echo "</tr>";
                            }
                       }
