@@ -381,7 +381,7 @@ if ($bandera == "add") {
         }
 
 
-        $consulta  = "UPDATE empleados set nombreempleados='" . $nombreEmpleado . "',apellidoempleados='" . $apellidoEmpleado . "',direccion='" . $direccionEmpleado . "',latitud='" . $latitud  . "',longitud='" . $longitud . "',telefono='" . $telefonoEmpleado . "',fotoempleados='" . $data . "',tipofotoc='" . $tipo . "',idusuario='" . $usuarioEmpleado . "' where idempleados='".$baccion."'";
+        $consulta  = "UPDATE empleados set nombreempleados='" . $nombreEmpleado . "',apellidoempleados='" . $apellidoEmpleado . "',direccion='" . $direccionEmpleado . "',latitud='" . $latitud  . "',longitud='" . $longitud . "',telefono='" . $telefonoEmpleado . "',fotoempleados='" . $data . "',tipofotoe='" . $tipo . "',idusuario='" . $usuarioEmpleado . "' where idempleados='".$baccion."'";
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito Empleado");
@@ -399,7 +399,7 @@ function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
-    echo "document.location.href='listaempleados.php';";
+    //echo "document.location.href='listaempleados.php';";
     echo "</script>";
 }
 ?>

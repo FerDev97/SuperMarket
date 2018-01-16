@@ -319,7 +319,7 @@ if ($result) {
 </html>
 
 <?php
-include "conexion.php";
+include "../config/conexion.php";
 $bandera          = $_REQUEST["bandera"];
 $baccion          = $_REQUEST["baccion"];
 $nombreAdministrador    = $_REQUEST["nombreAdministrador"];
@@ -334,7 +334,6 @@ $usuarioAnterior=$_REQUEST["usuarioAnterior"];
 $contrasenaAdministrador = $_REQUEST["contraseñaAdministrador"];
 $imagen = $_REQUEST["imagen"];
 $tipoUsuario="Administrador";
-
 //ahora hay que agregar la pinche imagen alv :'v
 if ($bandera == "add") {
   if($_FILES['imagen']['name']==null){
@@ -373,31 +372,25 @@ if ($bandera == "add") {
 
         $resultado = $conexion->query($consulta);
         if ($resultado) {
-            msg("Exito Usuario");
+            //msg("Exito Usuario");
         } else {
             msg("No Exito Usuario");
         }
-
-
-        $consulta  = "UPDATE administradores set nombreadministradores='" . $nombreAdministrador . "',apellidoadministradores='" . $apellidoAdministrador . "',direccion='" . $direccionAdministrador . "',latitud='" . $latitud  . "',longitud='" . $longitud . "',telefono='" . $telefonoAdministrador . "',fotoadministradores='" . $data . "',tipofotoc='" . $tipo . "',idusuario='" . $usuarioAdministrador . "' where idadministradores='".$baccion."'";
+        $consulta  = "UPDATE administradores set nombreadministradores='" . $nombreAdministrador . "',apellidoadministradores='" . $apellidoAdministrador . "',direccion='" . $direccionAdministrador . "',latitud='" . $latitud  . "',longitud='" . $longitud . "',telefono='" . $telefonoAdministrador . "',fotoadministradores='" . $data . "',tipofotoa='" . $tipo . "',idusuario='" . $usuarioAdministrador . "' where idadministradores='".$baccion."'";
         $resultado = $conexion->query($consulta);
         if ($resultado) {
             msg("Exito Administrador");
         } else {
-            msg("No Exito Administrador");
+            msg("error: ".$conexion->error);
         }
-
-
     }
   }
-
-
 }
 function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
-    echo "document.location.href='listaadministradores.php';";
+    //echo "document.location.href='listaadministradores.php';";
     echo "</script>";
 }
 ?>

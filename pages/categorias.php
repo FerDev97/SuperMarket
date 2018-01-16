@@ -22,8 +22,6 @@ if (isset($categoria) && $bandera=="add") {
         $consultac  = "UPDATE categorias set estado='0' where idcategoria=".$id;
         $resultado = $conexion->query($consultac);
       }
-
-
  ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -7,7 +7,6 @@ $numeroProductos=$result2->num_rows+1;
 $codigoProd=sprintf("%08d",$numeroProductos);
 if ($result) {
     while ($fila = $result->fetch_object()) {
-
         $codigoproductoR = $fila->codigoproductos;
         $nombreproductoR   = $fila->nombreproductos;
         $precioproductoR = $fila->precioproductos;
@@ -74,12 +73,9 @@ if ($result) {
             document.getElementById('bandera').value="add";
            document.super.submit();
           }
-
         }
-
     </script>
   </head>
-
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
@@ -354,7 +350,6 @@ $disponibilidad=0;
 if ($bandera == "add") {
 
   if($_FILES['imagen']['name']==null){
-    msg("Entra modificar solo producto");
     $consulta1  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='1'";
     $resultado3 = $conexion->query($consulta1);
     msg("Antes de if de resultado 3");
@@ -378,8 +373,7 @@ if ($bandera == "add") {
       fclose($fp);
       //escapar los caracteres
       $data      = mysqli_real_escape_string($conexion, $data);
-      $consulta  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',foto='".$data."',tipofoto='".$tipo."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='1'";
-      msg($consulta);
+      $consulta  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',foto='".$data."',tipofoto='".$tipo."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='".$id."'";
       $resultado = $conexion->query($consulta);
       if ($resultado) {
           msg("Exito");

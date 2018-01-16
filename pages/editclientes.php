@@ -14,7 +14,6 @@ if ($result) {
         $telefonoclientesR = $fila->telefonoclientes;
         $fotoclientesR = $fila->fotoclientes;
         $idusuarioR=$fila->idusuario;
-
         //esta linea es importante :'v'
         $consulta="select contrasena as contrasena from usuarios where idusuario ='".$idusuarioR."'";
         $result2=$conexion->query($consulta);
@@ -385,7 +384,7 @@ if ($bandera == "add") {
 
         $resultado = $conexion->query($consulta);
         if ($resultado) {
-            msg("Exito Usuario");
+            //msg("Exito Usuario");
         } else {
             msg("No Exito Usuario");
         }
