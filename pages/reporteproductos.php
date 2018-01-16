@@ -64,7 +64,7 @@
       <table border="1" class="formatocontenidotabla" cellspacing=0 cellpadding=0 rules="all">
         <tr>
             <td width="50" align="center"><strong>N&deg;</strong></td>
-            <td width="300" align="center"><strong>Nombre</strong></td>
+            <td width="355" align="center"><strong>Nombre</strong></td>
             <td width="300" align="center"><strong>Descripcion</strong></td>
           </tr>
       </table>
@@ -83,11 +83,10 @@
       if($contador%$numeroFilas==0){
         encabezado();
         echo "<table border='1' class='formatocontenidotabla' cellspacing='0' cellpadding='0' rules='all'>";
-
       }
       $contador++;
       echo "<tr>";
-      echo "<td width='50' align='center'>".$contador."</td>";
+      echo "<td width='55' align='center'>".$contador."</td>";
       echo "<td width='300'>".$fila->nombreproductos."</td>";
       echo "<td width='300'>".$fila->categoria."</td>";
       echo"</tr>";

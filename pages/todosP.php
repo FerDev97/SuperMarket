@@ -27,60 +27,26 @@
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
     <script type="text/javascript">
-      function llamarPaginaMapa(lat,lon)
-        {
-          var url="/supermarket/pages/verMapa.php?lat="+lat+"&lon="+lon;
-          window.open(url,"Nuevo","alwaysRaised=no");
-        }
-
-        function modificar(idp)
-        {
-          document.getElementById('bandera').value='enviar';
-          document.getElementById('baccion').value=idp;
-
-         document.supermarket.submit();
-        }
-        function kardex(id)
-        {
-         document.location.href='kardex.php?id='+id;
-        }
-        function confirmar(id,op)
-        {
-          if (op==1) {
-            if (confirm("!!Advertencia!! Desea Desactivar Este Registro?")) {
-            document.getElementById('bandera').value='desactivar';
-            document.getElementById('baccion').value=id;
-
-            document.supermarket.submit();
-          }else
-          {
-            alert("No entra");
-          }
-          }else{
-            if (confirm("!!Advertencia!! Desea Activar Este Registro?")) {
-            document.getElementById('bandera').value='activar';
-            document.getElementById('baccion').value=id;
-            document.supermarket.submit();
-          }else
-          {
-            alert("No entra");
-          }
-          }
-
-
-        }
         function verC(id,maximo)
         {
           var valor=document.getElementById(""+id).value;
-          if (valor<1 || valor>maximo) {
-            alert("La cantidad deseada excede la cantidad disponible.");
-            var valor=document.getElementById(""+id).value=maximo;
+          if (valor<1 || valor=="-" || valor=="e") {
+            alert("La cantidad deseada es invalida");
+            var valor=document.getElementById(""+id).value=1;
+          }else {
+            if (valor>maximo) {
+              alert("La cantidad deseada excede el maximo disponible.");
+              var valor=document.getElementById(""+id).value=30;
+            }
           }
 
         }
+        function ajaxCarrito(id)
+        {
+          alert("El producto es:"+id+" y la cantidad deseada es: "+document.getElementById(""+id).value);
+        }
     </script>
   </head>
-
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
@@ -89,9 +55,7 @@
             <div class="navbar nav_title" style="border: 0;">
               <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>SuperMarket!</span></a>
             </div>
-
             <div class="clearfix"></div>
-
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
@@ -103,9 +67,7 @@
               </div>
             </div>
             <!-- /menu profile quick info -->
-
             <br />
-
             <!-- sidebar menu -->
             <?php   if ($_SESSION["tipousuario"]=="invitado") {
                 include "menuCliente.php";
@@ -113,7 +75,6 @@
                 include "menu.php";
               } ?>
             <!-- /sidebar menu -->
-
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Settings">
@@ -132,7 +93,6 @@
             <!-- /menu footer buttons -->
           </div>
         </div>
-
         <!-- top navigation -->
         <div class="top_nav">
           <?php
@@ -196,7 +156,7 @@
                           echo "<td>".$fila->categoria."</td>";
                           echo "<td>".$fila->cantidad."</td>";
                          echo "<td style='text-align:center;'><img src='imagenes.php?id=" . $producto . "&tipo=producto' width=70 height=70 align='center'></td>";
-                          echo "<td style='text-align:center;'><input style='width:50px;' type='number' id='".$producto."' min='1' max='".$fila->cantidad."' value='1' onkeyup='verC(".$producto.",".$fila->cantidad.");'></input> <button title='Agregar al carrito.' align='center' type='button' class='btn btn-default' onclick=kardex(" . $producto . ");><i class='fa fa-shopping-cart'></i>
+                          echo "<td style='text-align:center;'><input style='width:50px;' type='number' id='".$producto."' min='1' max='".$fila->cantidad."' value='1' onkeyup='verC(".$producto.",".$fila->cantidad.");'></input> <button title='Agregar al carrito.' align='center' type='button' class='btn btn-default' onclick=ajaxCarrito(" . $producto . ");><i class='fa fa-shopping-cart'></i>
                            </button></td>";
                           echo "</tr>";
                            }
