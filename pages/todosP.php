@@ -69,6 +69,15 @@
 
 
         }
+        function verC(id,maximo)
+        {
+          var valor=document.getElementById(""+id).value;
+          if (valor<1 || valor>maximo) {
+            alert("La cantidad deseada excede la cantidad disponible.");
+            var valor=document.getElementById(""+id).value=maximo;
+          }
+
+        }
     </script>
   </head>
 
@@ -168,14 +177,11 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-
-
                           <th>Producto</th>
                           <th>Categoria</th>
                           <th>Disponibles</th>
-                          <th>Miniatura</th>
-                          <th>Ver</th>
-                          <th>Detalle</th>
+                          <th>Imagen</th>
+                          <th>Carrito</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -189,9 +195,8 @@
                           echo "<td>".$fila->nombre."</td>";
                           echo "<td>".$fila->categoria."</td>";
                           echo "<td>".$fila->cantidad."</td>";
-                         echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=modificar(" . $producto . ");><i class='fa fa-search'></i>
-                          </button></td>";
-                          echo "<td style='text-align:center;'><button align='center' type='button' class='btn btn-default' onclick=kardex(" . $producto . ");><i class='fa fa-list'></i>
+                         echo "<td style='text-align:center;'><img src='imagenes.php?id=" . $producto . "&tipo=producto' width=70 height=70 align='center'></td>";
+                          echo "<td style='text-align:center;'><input style='width:50px;' type='number' id='".$producto."' min='1' max='".$fila->cantidad."' value='1' onkeyup='verC(".$producto.",".$fila->cantidad.");'></input> <button title='Agregar al carrito.' align='center' type='button' class='btn btn-default' onclick=kardex(" . $producto . ");><i class='fa fa-shopping-cart'></i>
                            </button></td>";
                           echo "</tr>";
                            }
@@ -213,7 +218,6 @@
         <!-- /footer content -->
       </div>
     </div>
-
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
