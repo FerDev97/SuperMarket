@@ -86,7 +86,7 @@
 
       }
       $contador++;
-      echo "<tr>"
+      echo "<tr>";
       echo "<td width='50' align='center'>".$contador."</td>";
       echo "<td width='300'>".$fila->nombreproductos."</td>";
       echo "<td width='300'>".$fila->categoria."</td>";
