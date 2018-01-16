@@ -4,10 +4,13 @@ if ($_SESSION["tipousuario"]=="Administrador") {
 }else {
 	//$errorLogin=$_GET["error"];
 	//if($errorLogin=="login") {
+
 	if ($_SESSION["tipousuario"]=="Cliente" || $_SESSION["tipousuario"]=="Empleado" ) {
 		header('Location: pages/indexCliente.php');
 	}else {
 		//session como invitado
+		$_SESSION["tipousuario"]="invitado";
+		$_SESSION["usaurio"]="Invitado";
 		header('Location: pages/indexCliente.php');
 	}
 }

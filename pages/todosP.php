@@ -39,11 +39,29 @@
               var valor=document.getElementById(""+id).value=30;
             }
           }
-
         }
         function ajaxCarrito(id)
         {
           alert("El producto es:"+id+" y la cantidad deseada es: "+document.getElementById(""+id).value);
+          if (str==""){
+            document.getElementById("inputcuenta").innerHTML="";
+            return;
+          }
+          if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp=new XMLHttpRequest();
+        }else  {// code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function(){
+          if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            document.getElementById("inputcuenta").innerHTML=xmlhttp.responseText;
+          }
+        }
+
+              xmlhttp.open("GET","ajaxNombreCuenta.php?codigo="+str,true);
+              xmlhttp.send();
+
+
         }
     </script>
   </head>
