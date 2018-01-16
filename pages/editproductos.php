@@ -350,9 +350,8 @@ $disponibilidad=0;
 if ($bandera == "add") {
 
   if($_FILES['imagen']['name']==null){
-    $consulta1  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='1'";
+    $consulta1  = "UPDATE productos  set codigoproductos='".$codigoProducto."',nombreproductos='".$nombreProducto."',idcategoria='".$categoria."',stockmin='".$stockMin."',idproveedor='".$proveedor."',margen='".$margen."',descripcion='".$descripcion."' where idproductos='".$id."'";
     $resultado3 = $conexion->query($consulta1);
-    msg("Antes de if de resultado 3");
     if ($resultado3) {
         msg("Exito");
     } else {
@@ -383,10 +382,6 @@ if ($bandera == "add") {
   }
   }
   //MODIFICAR CON IMAAAAAGEEEEEN
-
-
-
-
 }
 
 function msg($texto)
