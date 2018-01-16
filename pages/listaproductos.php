@@ -35,6 +35,11 @@
           window.open(url,"Nuevo","alwaysRaised=no");
         }
 
+        function llamarPagina(){
+          var url="reporteproductos.php";
+          window.open(url,"Nuevo","alwaysRaised=no,toolbar=no,menubar=no,status=no,resizable=no,width=400,height=300,location=no");
+        }
+
         function modificar(idp)
         {
           document.getElementById('bandera').value='enviar';
@@ -160,6 +165,9 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Productos<small>Listado</small></h2>
+                  </br>
+                </br>
+                    <input type="button" class="btn btn-default" value="imprimir" onclick="llamarPagina()"/>
 
                     <div class="clearfix"></div>
                   </div>
