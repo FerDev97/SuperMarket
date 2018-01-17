@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -36,15 +37,18 @@
           }else {
             if (valor>maximo) {
               alert("La cantidad deseada excede el maximo disponible.");
-              var valor=document.getElementById(""+id).value=30;
+              var valor=document.getElementById(""+id).value=document.getElementById(""+id).max;
             }
           }
         }
-        function ajaxCarrito(id,opcion)
+        function ajaxCarrito(id,precioV,opcion)
         {
-          alert("El producto es:"+id+" y la cantidad deseada es: "+document.getElementById(""+id).value);
-          alert(opcion);
-          var cantidad=document.getElementById(""+id).value;
+
+          if (opcion!=0) {
+            alert("El producto es:"+id+" y la cantidad deseada es: "+document.getElementById(""+id).value+"A :"+precioV);
+            alert(opcion);
+            var cantidad=document.getElementById(""+id).value;
+          }
           if (id==""){
             document.getElementById("carrito").innerHTML="";
             return;
@@ -59,15 +63,21 @@
             document.getElementById("carrito").innerHTML=xmlhttp.responseText;
           }
         }
-
-              xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion="+opcion,true);
-              xmlhttp.send();
-
-
+        //opciones para el carrito
+              if(opcion=="agregar")
+              {
+                xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion="+opcion+"&cantidad="+cantidad+"&precio="+precioV,true);
+                xmlhttp.send();
+              }
+              if(opcion==0)
+              {
+                xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion=mostrar",true);
+                xmlhttp.send();
+              }
         }
     </script>
   </head>
-  <body class="nav-md">
+  <body class="nav-md" onload="ajaxCarrito('0','0','0');">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -158,7 +168,8 @@
                       <thead>
                         <tr>
                           <th>Producto</th>
-                          <th>Categoria</th>
+                          <th>Precio</th>
+
                           <th>Disponibles</th>
                           <th>Imagen</th>
                           <th>Carrito</th>
@@ -173,10 +184,10 @@
                           echo "<tr>";
                           $producto=$fila->idprod;
                           echo "<td>".$fila->nombre."</td>";
-                          echo "<td>".$fila->categoria."</td>";
+                          echo "<td> $".$fila->precioV."</td>";
                           echo "<td>".$fila->cantidad."</td>";
                          echo "<td style='text-align:center;'><img src='imagenes.php?id=" . $producto . "&tipo=producto' width=70 height=70 align='center'></td>";
-                          echo "<td style='text-align:center;'><input style='width:50px;' type='number' id='".$producto."' min='1' max='".$fila->cantidad."' value='1' onkeyup='verC(".$producto.",".$fila->cantidad.");'></input> <button title='Agregar al carrito.' align='center' type='button' class='btn btn-default' onclick=ajaxCarrito(" . $producto . ",'agregar');><i class='fa fa-shopping-cart'></i>
+                          echo "<td style='text-align:center;'><input style='width:50px;' type='number' id='".$producto."' min='1' max='".$fila->cantidad."' value='1' onkeyup='verC(".$producto.",".$fila->cantidad.");'></input> <button title='Agregar al carrito.' align='center' type='button' class='btn btn-default' onclick=ajaxCarrito(" . $producto . ",".$fila->precioV.",'agregar');><i class='fa fa-shopping-cart'></i>
                            </button></td>";
                           echo "</tr>";
                            }
