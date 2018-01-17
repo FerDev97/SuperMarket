@@ -27,6 +27,15 @@
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
     <script type="text/javascript">
+        function procesar()
+        {
+          if (document.getElementById("logged").value=="si") {
+            alert("Ya esta loggeado y puede comprar");
+          }else {
+            alert("Por favor inicie sesion antes de comprar.");
+            document.location.href="login.php?redir=ok";
+          }
+        }
         function verC(id,maximo)
         {
           var valor=document.getElementById(""+id).value;
@@ -66,10 +75,7 @@
                 xmlhttp.send();
                 location.reload();
               }
-
-
         }
-
         function ajaxCarrito(id,precioV,opcion)
         {
 
@@ -109,7 +115,6 @@
                 xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion=mostrar",true);
                 xmlhttp.send();
               }
-
         }
     </script>
   </head>
@@ -136,6 +141,11 @@
             <br />
             <!-- sidebar menu -->
             <?php   if ($_SESSION["tipousuario"]=="invitado" || $_SESSION["tipousuario"]=="Cliente") {
+                if ($_SESSION["tipousuario"]=="Cliente") {
+                echo "<input type='hidden' id='logged' value='si'></input>";
+              }else {
+                echo "<input type='hidden' id='logged' value='no'></input>";
+              }
                 include "menuCliente.php";
               }else {
                 include "menu.php";
@@ -170,7 +180,6 @@
            ?>
         </div>
         <!-- /top navigation -->
-
         <!-- page content -->
       <form id="supermarket" name="supermarket" action="" method="post">
       <input type="hidden" name="bandera" id="bandera">
@@ -181,13 +190,8 @@
             <div class="page-title">
               <div class="title_left">
                 <h3>Productos <small> Listado de todos los productos en el carrito.</small></h3>
-              </br>
-            </br>
-                <input type="button" class="btn btn-default" value="Procesar" onclick="procesar()"/>
               </div>
-
             </div>
-
             <div class="clearfix"></div>
 
             <div class="row">
@@ -242,11 +246,10 @@
                         echo "<td colspan='4'>TOTAL:</td>";
                         echo "<td >".$totalDelTotal."</td>";
                       echo "</tr>";
-
-
                        ?>
                       </tbody>
                     </table>
+                    <input type="button" class="btn btn-default" value="Pagar." data-toggle="tooltip" data-placement="bottom" title="Proceder a efectuar la compra." onclick="procesar()"/>
                   </div>
                 </div>
               </div>

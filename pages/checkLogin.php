@@ -1,6 +1,7 @@
 <?php
 			$loginNombre = $_REQUEST["usuario"];
 			$loginPassword =$_REQUEST["contra"];
+			$redir =$_REQUEST["redir"];
       $correcto=false;
     include "../config/conexion.php";
       $result = $conexion->query("select * from usuarios where idusuario= '$loginNombre' AND contrasena='$loginPassword'");
@@ -42,6 +43,7 @@ if ($result) {
 											$id=$fila->idclientes;
 											$_SESSION["id"]=$id;
 										}
+										
 								}
 
 					}

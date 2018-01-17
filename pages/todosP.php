@@ -99,7 +99,8 @@
             <!-- /menu profile quick info -->
             <br />
             <!-- sidebar menu -->
-            <?php   if ($_SESSION["tipousuario"]=="invitado") {
+            <?php   if ($_SESSION["tipousuario"]=="invitado" || $_SESSION["tipousuario"]=="Cliente" ) {
+                
                 include "menuCliente.php";
               }else {
                 include "menu.php";

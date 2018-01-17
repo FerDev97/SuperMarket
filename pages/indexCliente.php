@@ -62,9 +62,52 @@ include "conexion.php";
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+    <script type="text/javascript">
+    function ajaxCarrito(id,precioV,opcion)
+    {
+
+      if (opcion!=0) {
+        alert("El producto es:"+id+" y la cantidad deseada es: "+document.getElementById(""+id).value+"A :"+precioV);
+        alert(opcion);
+        var cantidad=document.getElementById(""+id).value;
+      }
+      if (id==""){
+        document.getElementById("carrito").innerHTML="";
+        return;
+      }
+      if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }else  {// code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function(){
+      if (xmlhttp.readyState==4 && xmlhttp.status==200){
+        document.getElementById("carrito").innerHTML=xmlhttp.responseText;
+      }
+    }
+    //opciones para el carrito
+          if(opcion=="agregar")
+          {
+            xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion="+opcion+"&cantidad="+cantidad+"&precio="+precioV,true);
+            xmlhttp.send();
+          }
+          if(opcion=="quitar")
+          {
+            xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion="+opcion+"&cantidad="+cantidad+"&precio="+precioV,true);
+            xmlhttp.send();
+
+          }
+          if(opcion==0)
+          {
+            xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion=mostrar",true);
+            xmlhttp.send();
+          }
+
+    }
+    </script>
   </head>
 
-  <body class="nav-md">
+  <body class="nav-md" onload="ajaxCarrito('0','0','0');">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">

@@ -1,5 +1,6 @@
 <?php
 $aux=$_REQUEST["aux"];
+$redir=$_REQUEST["redir"];
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +32,13 @@ $aux=$_REQUEST["aux"];
         if (user=="" || contra=="") {
           alert("Por favor ingrese todos los campos.");
         }else {
-          location.href ="checkLogin.php?usuario="+user+"&contra="+contra;
+          if (document.getElementById("redir").value=="ok") {
+            alert("Voy a redireccionar.");
+            location.href ="checkLogin.php?usuario="+user+"&contra="+contra+"&redir=ok";
+          }else {
+              location.href ="checkLogin.php?usuario="+user+"&contra="+contra;
+          }
+
         }
       }
     </script>
@@ -47,6 +54,7 @@ $aux=$_REQUEST["aux"];
           <section class="login_content">
             <form action="">
               <h1>Iniciar Sesion</h1>
+              <input type="hidden" id="redir" value="<?php echo $redir;?>">
               <div>
                 <input type="text" name="usuario" id="usuario" class="form-control" placeholder="Usuario" required="" value=""/>
               </div>
