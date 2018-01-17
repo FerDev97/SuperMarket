@@ -180,8 +180,10 @@ $nombrecategoria=$_REQUEST["categoria"];
                       <tbody>
                         <?php
                       include 'conexion.php';
-                      $result = $conexion->query("select p.idproductos as idprod, p.codigoproductos as codigo, p.nombreproductos as nombre,p.preciocompra as precioC,p.precioventa as precioV,p.cantidadproductos as cantidad, c.categoria as categoria,p.disponibilidad as disp, pr.nombre as proveedor from productos as p, categorias as c, proveedores as pr where p.idcategoria=c.idcategoria and p.idproveedor=pr.idproveedor and p.disponibilidad=1 and p.cantidadproductos>0 and p.categoria=".$idC.);
+
+                      $result = $conexion->query("select p.idproductos as idprod, p.codigoproductos as codigo, p.nombreproductos as nombre,p.preciocompra as precioC,p.precioventa as precioV,p.cantidadproductos as cantidad, c.categoria as categoria,p.disponibilidad as disp, pr.nombre as proveedor from productos as p, categorias as c, proveedores as pr where p.idcategoria=c.idcategoria and p.idproveedor=pr.idproveedor and p.disponibilidad=1 and p.cantidadproductos>0 and p.idcategoria=".$idcategoria);
                       if ($result) {
+
                         while ($fila = $result->fetch_object()) {
                           echo "<tr>";
                           $producto=$fila->idprod;
