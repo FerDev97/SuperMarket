@@ -23,7 +23,6 @@
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
@@ -41,6 +40,36 @@
             }
           }
         }
+        function quitarCarrito(id,precioV,opcion)
+        {
+          if (id==""){
+            document.getElementById("carrito").innerHTML="";
+            return;
+          }
+          if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp=new XMLHttpRequest();
+        }else  {// code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange=function(){
+          if (xmlhttp.readyState==4 && xmlhttp.status==200){
+            document.getElementById("carrito").innerHTML=xmlhttp.responseText;
+          }
+        }
+        //opciones para el carrito
+              if(opcion=="quitar")
+              {
+                alert("Va a quitar");
+                alert("ID:"+id);
+                alert("Opcion:"+opcion);
+                xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion="+opcion+"&precio="+precioV,true);
+                xmlhttp.send();
+                location.reload();
+              }
+
+
+        }
+
         function ajaxCarrito(id,precioV,opcion)
         {
 
@@ -69,11 +98,18 @@
                 xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion="+opcion+"&cantidad="+cantidad+"&precio="+precioV,true);
                 xmlhttp.send();
               }
+              if(opcion=="quitar")
+              {
+                xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion="+opcion+"&cantidad="+cantidad+"&precio="+precioV,true);
+                xmlhttp.send();
+
+              }
               if(opcion==0)
               {
                 xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion=mostrar",true);
                 xmlhttp.send();
               }
+              
         }
     </script>
   </head>
@@ -99,7 +135,7 @@
             <!-- /menu profile quick info -->
             <br />
             <!-- sidebar menu -->
-            <?php   if ($_SESSION["tipousuario"]=="invitado") {
+            <?php   if ($_SESSION["tipousuario"]=="invitado" || $_SESSION["tipousuario"]=="Cliente") {
                 include "menuCliente.php";
               }else {
                 include "menu.php";
@@ -144,7 +180,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Productos <small> Listado de todos los productos.</small></h3>
+                <h3>Productos <small> Listado de todos los productos en el carrito.</small></h3>
               </div>
 
             </div>
@@ -168,29 +204,43 @@
                       <thead>
                         <tr>
                           <th>Producto</th>
-                          <th>Precio</th>
-                          <th>Disponibles</th>
-                          <th>Imagen</th>
-                          <th>Carrito</th>
+                          <th>Cantidad</th>
+                          <th>Precio Unitario</th>
+                          <th>Subtotal</th>
+                          <th>Quitar</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
                       include 'conexion.php';
-                      $result = $conexion->query("select p.idproductos as idprod, p.codigoproductos as codigo, p.nombreproductos as nombre,p.preciocompra as precioC,p.precioventa as precioV,p.cantidadproductos as cantidad, c.categoria as categoria,p.disponibilidad as disp, pr.nombre as proveedor from productos as p, categorias as c, proveedores as pr where p.idcategoria=c.idcategoria and p.idproveedor=pr.idproveedor and p.disponibilidad=1 and p.cantidadproductos>0");
-                      if ($result) {
-                        while ($fila = $result->fetch_object()) {
-                          echo "<tr>";
-                          $producto=$fila->idprod;
-                          echo "<td>".$fila->nombre."</td>";
-                          echo "<td> $".$fila->precioV."</td>";
-                          echo "<td>".$fila->cantidad."</td>";
-                         echo "<td style='text-align:center;'><img src='imagenes.php?id=" . $producto . "&tipo=producto' width=70 height=70 align='center'></td>";
-                          echo "<td style='text-align:center;'><input style='width:50px;' type='number' id='".$producto."' min='1' max='".$fila->cantidad."' value='1' onkeyup='verC(".$producto.",".$fila->cantidad.");'></input> <button title='Agregar al carrito.' align='center' type='button' class='btn btn-default' onclick=ajaxCarrito(" . $producto . ",".$fila->precioV.",'agregar');><i class='fa fa-shopping-cart'></i>
-                           </button></td>";
-                          echo "</tr>";
-                           }
+                      //RECORRER LA MATRIZ DE LOS PRODUCTOS
+                      $acumulador=$_SESSION['acumulador'];
+                      $matriz=$_SESSION['matriz'];
+                      for ($i=1; $i <=$acumulador ; $i++) {
+                        if (array_key_exists($i, $matriz)) {
+                          $result = $conexion->query("select p.idproductos as idprod, p.codigoproductos as codigo, p.nombreproductos as nombre,p.preciocompra as precioC,p.precioventa as precioV,p.cantidadproductos as cantidad, c.categoria as categoria,p.disponibilidad as disp, pr.nombre as proveedor from productos as p, categorias as c, proveedores as pr where p.idcategoria=c.idcategoria and p.idproveedor=pr.idproveedor and p.disponibilidad=1 and p.cantidadproductos>0 and p.idproductos=".$matriz[$i][0]);
+                          if ($result) {
+                            while ($fila = $result->fetch_object()) {
+                              echo "<tr>";
+                              $producto=$fila->idprod;
+                              echo "<td>".$fila->nombre."</td>";
+                              echo "<td> ".$matriz[$i][1]."</td>";
+                              echo "<td>".$matriz[$i][2]."</td>";
+                              echo "<td>".$matriz[$i][3]."</td>";
+                              $totalDelTotal=$totalDelTotal+$matriz[$i][3];
+                              echo "<td style='text-align:center;'> <button title='Agregar al carrito.' align='center' type='button' class='btn btn-default' onclick=quitarCarrito(" . $i . ",".$fila->precioV.",'quitar');><i class='fa fa-remove'></i>
+                               </button></td>";
+                              echo "</tr>";
+                               }
+                          }
+                        }
                       }
+                      echo "<tr class='danger' border='1'>";
+                        echo "<td colspan='4'>TOTAL:</td>";
+                        echo "<td >".$totalDelTotal."</td>";
+                      echo "</tr>";
+
+
                        ?>
                       </tbody>
                     </table>

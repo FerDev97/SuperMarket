@@ -59,11 +59,35 @@ if ($opcion=="agregar") {
       echo '<a id="menu_toggle"><i class="fa fa-shopping-cart"></i></a>';
 
     }else {
-        echo '<a id="menu_toggle"><i class="fa fa-shopping-cart"></i> '.$totalDelTotal.'</a>';
+        echo '<a id="menu_toggle" href="mostrarCarrito.php"><i class="fa fa-shopping-cart"></i>Total:'.$totalDelTotal.'</a>';
     }
 
-}else {
-    echo '<a id="menu_toggle"><i class="fa fa-shopping-cart"></i> 0</a>';
+}
+if($opcion=="quitar") {
+  $indice=$_GET["id"];
+	$matriz=$_SESSION['matriz'];
+	unset($matriz[$id]);//eliminacion de un indice en la matriz
+	$_SESSION['matriz']=$matriz;
+  $acumulador=$_SESSION['acumulador'];
+  $matriz=$_SESSION['matriz'];
+  for ($i=1; $i <=$acumulador ; $i++) {
+    if (array_key_exists($i, $matriz)) {
+      $totalDelTotal=$totalDelTotal+$matriz[$i][3];
+    }
+  }
+    echo '<a id="menu_toggle" href="mostrarCarrito.php"><i class="fa fa-shopping-cart"></i>Total:'.$totalDelTotal.'</a>';
+
+}
+if($opcion=="mostrar") {
+  $acumulador=$_SESSION['acumulador'];
+  $matriz=$_SESSION['matriz'];
+  for ($i=1; $i <=$acumulador ; $i++) {
+    if (array_key_exists($i, $matriz)) {
+      $totalDelTotal=$totalDelTotal+$matriz[$i][3];
+    }
+  }
+    echo '<a id="menu_toggle" href="mostrarCarrito.php"><i class="fa fa-shopping-cart"></i>Total:'.$totalDelTotal.'</a>';
+
 }
 
 function msg($texto)
