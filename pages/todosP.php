@@ -40,11 +40,13 @@
             }
           }
         }
-        function ajaxCarrito(id)
+        function ajaxCarrito(id,opcion)
         {
           alert("El producto es:"+id+" y la cantidad deseada es: "+document.getElementById(""+id).value);
-          if (str==""){
-            document.getElementById("inputcuenta").innerHTML="";
+          alert(opcion);
+          var cantidad=document.getElementById(""+id).value;
+          if (id==""){
+            document.getElementById("carrito").innerHTML="";
             return;
           }
           if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -54,11 +56,11 @@
         }
         xmlhttp.onreadystatechange=function(){
           if (xmlhttp.readyState==4 && xmlhttp.status==200){
-            document.getElementById("inputcuenta").innerHTML=xmlhttp.responseText;
+            document.getElementById("carrito").innerHTML=xmlhttp.responseText;
           }
         }
 
-              xmlhttp.open("GET","ajaxNombreCuenta.php?codigo="+str,true);
+              xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion="+opcion,true);
               xmlhttp.send();
 
 
@@ -174,7 +176,7 @@
                           echo "<td>".$fila->categoria."</td>";
                           echo "<td>".$fila->cantidad."</td>";
                          echo "<td style='text-align:center;'><img src='imagenes.php?id=" . $producto . "&tipo=producto' width=70 height=70 align='center'></td>";
-                          echo "<td style='text-align:center;'><input style='width:50px;' type='number' id='".$producto."' min='1' max='".$fila->cantidad."' value='1' onkeyup='verC(".$producto.",".$fila->cantidad.");'></input> <button title='Agregar al carrito.' align='center' type='button' class='btn btn-default' onclick=ajaxCarrito(" . $producto . ");><i class='fa fa-shopping-cart'></i>
+                          echo "<td style='text-align:center;'><input style='width:50px;' type='number' id='".$producto."' min='1' max='".$fila->cantidad."' value='1' onkeyup='verC(".$producto.",".$fila->cantidad.");'></input> <button title='Agregar al carrito.' align='center' type='button' class='btn btn-default' onclick=ajaxCarrito(" . $producto . ",'agregar');><i class='fa fa-shopping-cart'></i>
                            </button></td>";
                           echo "</tr>";
                            }
