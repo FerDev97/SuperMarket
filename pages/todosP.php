@@ -169,7 +169,6 @@
                         <tr>
                           <th>Producto</th>
                           <th>Precio</th>
-
                           <th>Disponibles</th>
                           <th>Imagen</th>
                           <th>Carrito</th>
