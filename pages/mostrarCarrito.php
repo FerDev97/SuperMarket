@@ -310,7 +310,6 @@ if ($bandera == 'enviar') {
     echo "<script type='text/javascript'>";
     echo "document.location.href='editproductos.php?id=" . $baccion . "';";
     echo "</script>";
-    # code...
 }
 if ($bandera == "comprar") {
   // $consulta = "UPDATE productos SET disponibilidad = '0' WHERE idproductos = '".$baccion."'";
@@ -329,6 +328,13 @@ if ($bandera == "comprar") {
     if ($resultVenta) {
       msg("Se ha registrado la venta.");
     }
+    //agarrar el id de la venta registrada
+    $resultNum = $conexion->query("select * from ventas");
+    if ($resultNum) {
+      while ($fila = $resultNum->fetch_object()) {
+        $idventa=$fila->idventa;
+      }
+    }
     $acumulador=$_SESSION['acumulador'];
     $matriz=$_SESSION['matriz'];
     for ($i=1; $i <=$acumulador ; $i++) {
@@ -339,13 +345,53 @@ if ($bandera == "comprar") {
           while ($fila = $result->fetch_object()) {
             msg($fila->nombre);
             //Ahora se va a registrar la venta.
-
-            // $resultNum = $conexion->query("select * from ventas");
-            // if ($resultNum->num_rows<1) {
-          //     msg("No hay ningun registro.");
-          //   }
-
-
+            $resultDetalle = $conexion->query("INSERT INTO detalles VALUES('null','".$idventa."','".$fila->idprod."','".$fila->precioV."','".$matriz[$i][2]."')");
+            if ($resultDetalle) {
+              msg("Se ha agregado a detalle.");
+            }
+            //Obtendremos el ultimo valor total del saldo en el kardex
+            $idproducto=$fila->idprod;
+            $cantidadP=$fila->cantidad;
+            $consulta1="select * from kardex where idproducto='".$fila->idprod."' order by idkardex";
+            $resultado1=$conexion->query($consulta1);
+            if($resultado1->num_rows<1)
+            {
+              $valorTotalAnterior=0;
+            }else {
+              if ($resultado1) {
+                while ($fila1=$resultado1->fetch_object()) {
+                  $valorTotalAnterior=$fila1->vtotals;
+                  msg("Obtiene el valor total anterior.");
+                }
+              }else {
+                  msg(mysqli_error($conexion));
+              }
+            }
+            //va a ser una venta
+            $cantidadP=$cantidadP-$matriz[$i][1];
+            $subtotalK=$matriz[$i][3];
+            $nuevoValorTotalS=$valorTotalAnterior-$subtotalK;
+            $nuevoValorTotalS=number_format($nuevoValorTotalS, 2, ".", "");
+            $valorUnitarioS=$nuevoValorTotalS/$cantidadP;
+            $valorUnitarioS=number_format($valorUnitarioS, 2, ".", "");
+            $consulta3  = "INSERT INTO kardex VALUES('null','" . $idproducto . "','" . $fechaactual . "','Venta realizada.','0','" . $matriz[$i][1] . "','" . $matriz[$acumulador][2] . "','" . $cantidadP . "','" . $valorUnitarioS . "','" . $nuevoValorTotalS . "')";
+            $resultado3 = $conexion->query($consulta3);
+            if ($resultado3) {
+                msg("Entra al result del kardex");
+                //msg("Exito Compra");
+                //AHORA A ACTUALIZAR LOS NUEVOS VALORES QUE TENDRA DICHO Producto
+                //nuevo precio del productos
+                $consulta4="UPDATE productos set cantidadproductos='".$cantidadP."'where idproductos='".$idproducto."'";
+                $resultado = $conexion->query($consulta4);
+                if ($resultado) {
+                    msg("Se redujo la cantidad.");
+                  //header('Location:kardex.php?id='.$idproducto);
+                } else {
+                    //msg("No Exito Producto");
+                }
+              } else {
+                msg(mysqli_error($conexion));
+            }
           }
         }
       }
