@@ -31,6 +31,8 @@
         {
           if (document.getElementById("logged").value=="si") {
             alert("Ya esta loggeado y puede comprar");
+            document.getElementById("bandera").value="comprar";
+            document.supermarket.submit();
           }else {
             alert("Por favor inicie sesion antes de comprar.");
             document.location.href="login.php?redir=ok";
@@ -310,13 +312,43 @@ if ($bandera == 'enviar') {
     echo "</script>";
     # code...
 }
-if ($bandera == "desactivar") {
-  $consulta = "UPDATE productos SET disponibilidad = '0' WHERE idproductos = '".$baccion."'";
-    $resultado = $conexion->query($consulta);
-    if ($resultado) {
-        msg("Exito");
-    } else {
-        msg("No Exito");
+if ($bandera == "comprar") {
+  // $consulta = "UPDATE productos SET disponibilidad = '0' WHERE idproductos = '".$baccion."'";
+  //   $resultado = $conexion->query($consulta);
+    // if ($resultado) {
+    //     msg("Exito");
+    // } else {
+    //     msg("No Exito");
+    // }
+    msg("Esta a punto de comprar.");
+    $usuario=$_SESSION['usuario'];
+    msg("El dia actual es".date('d')."-".date('m')."-".date('y'));
+    $fechaactual=date('d')."-".date('m')."-".date('y');
+    $consulta="INSERT INTO ventas VALUES('null','".$fechaactual."','".$usuario."')";
+    $resultVenta = $conexion->query($consulta);
+    if ($resultVenta) {
+      msg("Se ha registrado la venta.");
+    }
+    $acumulador=$_SESSION['acumulador'];
+    $matriz=$_SESSION['matriz'];
+    for ($i=1; $i <=$acumulador ; $i++) {
+      if (array_key_exists($i, $matriz)) {
+        //consulta para los datos de los productos.
+        $result = $conexion->query("select p.idproductos as idprod, p.codigoproductos as codigo, p.nombreproductos as nombre,p.preciocompra as precioC,p.precioventa as precioV,p.cantidadproductos as cantidad, c.categoria as categoria,p.disponibilidad as disp, pr.nombre as proveedor from productos as p, categorias as c, proveedores as pr where p.idcategoria=c.idcategoria and p.idproveedor=pr.idproveedor and p.disponibilidad=1 and p.cantidadproductos>0 and p.idproductos=".$matriz[$i][0]);
+        if ($result) {
+          while ($fila = $result->fetch_object()) {
+            msg($fila->nombre);
+            //Ahora se va a registrar la venta.
+
+            // $resultNum = $conexion->query("select * from ventas");
+            // if ($resultNum->num_rows<1) {
+          //     msg("No hay ningun registro.");
+          //   }
+
+
+          }
+        }
+      }
     }
 }
 if ($bandera == "activar") {
@@ -333,7 +365,7 @@ function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
-    echo "document.location.href='listaproductos.php';";
+    //echo "document.location.href='listaproductos.php';";
     echo "</script>";
 }
 ?>
