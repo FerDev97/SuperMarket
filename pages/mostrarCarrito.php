@@ -109,7 +109,7 @@
                 xmlhttp.open("GET","ajaxCarrito.php?id="+id+"&opcion=mostrar",true);
                 xmlhttp.send();
               }
-              
+
         }
     </script>
   </head>
@@ -181,6 +181,9 @@
             <div class="page-title">
               <div class="title_left">
                 <h3>Productos <small> Listado de todos los productos en el carrito.</small></h3>
+              </br>
+            </br>
+                <input type="button" class="btn btn-default" value="Procesar" onclick="procesar()"/>
               </div>
 
             </div>
