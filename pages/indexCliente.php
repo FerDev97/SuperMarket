@@ -174,11 +174,7 @@ include "conexion.php";
               <div class="count"><?php echo $productos ?></div>
 
             </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> PRUEBA</span>
-              <div class="count">7,325</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> MAS VENDIDOS</span>
-            </div>
+            
           </div>
           <!-- /top tiles -->
           <br />

@@ -23,6 +23,13 @@ include "conexion.php";
           $empleados=$fila->empleados;
     }
   }
+  $consulta  = "select count(idventa) as ventas from ventas";
+  $resultado = $conexion->query($consulta);
+  if ($resultado) {
+  while ($fila = $resultado->fetch_object()) {
+    $ventas=$fila->ventas;
+}
+}
 
   $consulta  = "select count(idproductos) as productos from productos";
   $resultado = $conexion->query($consulta);
@@ -112,29 +119,30 @@ include "conexion.php";
           <div class="row tile_count">
 
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-lock"></i> Total de Administradores</span>
-              <div class="count"><?php echo $administradores ?></div>
+              <span class="count_top"><i class="fa fa-lock"></i>Total de Administradores</span>
+              <a href="listaadministradores.php"><div class="count"><?php echo $administradores ?></div></a>
 
             </div>
+
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total de Clientes</span>
-              <div class="count"><?php echo $clientes ?></div>
+              <a href="listaclientes.php"><div class="count"><?php echo $clientes ?></div></a>
             </div>
 
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Empleados</span>
-              <div class="count"><?php echo $empleados ?></div>
+              <a href="listaempleados.php"><div class="count"><?php echo $empleados ?></div></a>
 
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-shopping-bag"></i> Total de Productos.</span>
-              <div class="count"><?php echo $productos ?></div>
+              <a href="listaproductos.php"><div class="count"><?php echo $productos ?></div></a>
 
             </div>
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> PRUEBA</span>
-              <div class="count">7,325</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> MAS VENDIDOS</span>
+              <span class="count_top"><i class="fa fa-check"></i> Total de Ventas.</span>
+              <a href="listaVentas.php"><div class="count"><?php echo $ventas ?></div></a>
+
             </div>
           </div>
           <!-- /top tiles -->
