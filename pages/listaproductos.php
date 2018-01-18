@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start();
+if (isset($_SESSION["logueado"]) && $_SESSION["tipousuario"]=="Administrador") {
+ ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -314,3 +316,9 @@ function msg($texto)
     echo "</script>";
 }
 ?>
+<?php
+}else {
+  $_SESSION["logueado"]=true;
+  header("Location: ../index.php");
+}
+ ?>
