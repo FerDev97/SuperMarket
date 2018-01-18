@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start();
+if (isset($_SESSION["logueado"])) {
+  # code...
+
+?>
+
 <?php
   $idproducto=$_REQUEST["id"];
   include 'conexion.php';
@@ -388,3 +393,9 @@
 
   </body>
 </html>
+<?php
+}else {
+  $_SESSION["logueado"]=true;
+  header("Location: ../index.php");
+}
+ ?>

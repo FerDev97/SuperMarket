@@ -1,4 +1,5 @@
 <?php session_start();
+if (isset($_SESSION["logueado"])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,7 +101,7 @@
             <br />
             <!-- sidebar menu -->
             <?php   if ($_SESSION["tipousuario"]=="invitado" || $_SESSION["tipousuario"]=="Cliente" ) {
-                
+
                 include "menuCliente.php";
               }else {
                 include "menu.php";
@@ -282,3 +283,9 @@ function msg($texto)
     echo "</script>";
 }
 ?>
+<?php
+}else {
+  $_SESSION["logueado"]=true;
+  header("Location: ../index.php");
+}
+ ?>

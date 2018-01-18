@@ -1,4 +1,5 @@
 <?php session_start();
+if (isset($_SESSION["logueado"])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -384,8 +385,10 @@ if ($bandera == "comprar") {
                 $consulta4="UPDATE productos set cantidadproductos='".$cantidadP."'where idproductos='".$idproducto."'";
                 $resultado = $conexion->query($consulta4);
                 if ($resultado) {
-                    msg("Se redujo la cantidad.");
+                    msg2("Muchas gracias por su compra. :)");
                   //header('Location:kardex.php?id='.$idproducto);
+                  unset($_SESSION["acumulador"]);
+                  unset($_SESSION["matriz"]);
                 } else {
                     //msg("No Exito Producto");
                 }
@@ -411,7 +414,18 @@ function msg($texto)
 {
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
-    //echo "document.location.href='listaproductos.php';";
+    //echo "document.location.href='indexCliente.php';";
     echo "</script>";
+}
+function msg2($texto)
+{
+    echo "<script type='text/javascript'>";
+    echo "alert('$texto');";
+    echo "document.location.href='indexCliente.php';";
+    echo "</script>";
+}
+}else {
+  $_SESSION["logueado"]=true;
+  header("Location: ../index.php");
 }
 ?>
