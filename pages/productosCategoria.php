@@ -87,17 +87,17 @@ $nombrecategoria=$_REQUEST["categoria"];
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>SuperMarket!</span></a>
+              <a href="../index.php" class="site_title"><i class="fa fa-paw"></i> <span>SuperMarket!</span></a>
             </div>
             <div class="clearfix"></div>
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <a href="../index.php" class="site_title"><i class="fa fa-user"></i></a>
               </div>
               <div class="profile_info">
-                <span>Bienvenido,</span>
-                <h2>Fernando</h2>
+                <span>Bienvenido ,</span>
+                <h2><?php echo $_SESSION['usuario']; ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
