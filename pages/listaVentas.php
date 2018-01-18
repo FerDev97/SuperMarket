@@ -37,6 +37,10 @@
           var url="reporteventaM.php";
           window.open(url,"Nuevo","alwaysRaised=no,toolbar=no,menubar=no,status=no,resizable=no,width=400,height=300,location=no");
         }
+        function llamarPagina1(){
+          var url="reportePM.php";
+          window.open(url,"Nuevo","alwaysRaised=no,toolbar=no,menubar=no,status=no,resizable=no,width=400,height=300,location=no");
+        }
 
         function modificar(idp)
         {
@@ -168,6 +172,7 @@
                   </br>
                 </br>
                     <input type="button" class="btn btn-default" value="imprimir" onclick="llamarPagina()"/>
+                    <input type="button" class="btn btn-default" value="imprimir" onclick="llamarPagina1()"/>
 
                     <div class="clearfix"></div>
                   </div>
