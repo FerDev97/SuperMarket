@@ -66,7 +66,7 @@
 
             <td width="55" align="center"><strong>N&deg;</strong></td>
             <td width="300" align="center"><strong>Producto</strong></td>
-            <td width="300" align="center"><strong>Total de Ventas</strong></td>
+            <td width="300" align="center"><strong>Cantidad Vendida</strong></td>
 
           </tr>
       </table>
@@ -91,7 +91,14 @@
       $contador++;
       echo "<tr>";
       echo "<td width='55' align='center'>".$contador."</td>";
-      echo "<td width='300'>".$fila->id."</td>";
+      $result2 =$conexion->query("select * from productos where idproductos=".$fila->id);
+      if ($result2) {
+        while ($fila2=$result2->fetch_object()) {
+          $nombre=$fila2->nombreproductos;
+        }
+      }
+
+      echo "<td width='300'>".$nombre."</td>";
       echo "<td width='300'>".$fila->total."</td>";
       echo"</tr>";
       if($contador%$numeroFilas==0){
