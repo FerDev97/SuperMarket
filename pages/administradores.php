@@ -1,5 +1,4 @@
 <?php session_start();
-if (isset($_SESSION["logueado"])) {
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -327,10 +326,6 @@ if ($bandera == "add") {
             msg("No Exito");
         }
     }
-
-
-
-
         }else
         {
           msg("Error Usuario.");
@@ -342,11 +337,5 @@ function msg($texto)
     echo "<script type='text/javascript'>";
     echo "alert('$texto');";
     echo "</script>";
-}
-?>
-<?php
-}else {
-  $_SESSION["logueado"]=true;
-  header("Location: ../index.php");
 }
  ?>

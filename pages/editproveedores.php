@@ -1,5 +1,5 @@
 <?php session_start();
-if (isset($_SESSION["logueado"]) && $_SESSION["tipousuario"]=="Administrador") {
+
 $id = $_REQUEST["id"];
 include "../config/conexion.php";
 $result = $conexion->query("select * from proveedores where idproveedor=" . $id);
@@ -321,9 +321,3 @@ function msg($texto)
     echo "</script>";
 }
 ?>
-<?php
-}else {
-  $_SESSION["logueado"]=true;
-  header("Location: ../index.php");
-}
- ?>

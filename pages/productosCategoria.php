@@ -1,5 +1,5 @@
 <?php session_start();
-if (isset($_SESSION["logueado"])) {
+
   # code...
 $idcategoria=$_REQUEST["idC"];
 $nombrecategoria=$_REQUEST["categoria"];
@@ -288,8 +288,5 @@ function msg($texto)
     echo "</script>";
 }
 //para el control de la session
-}else {
-  $_SESSION["logueado"]=true;
-  header("Location: ../index.php");
-}
+
 ?>

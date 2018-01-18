@@ -34,7 +34,7 @@
         }
 
         function llamarPagina(){
-          var url="reporteproductos.php";
+          var url="reporteventaM.php";
           window.open(url,"Nuevo","alwaysRaised=no,toolbar=no,menubar=no,status=no,resizable=no,width=400,height=300,location=no");
         }
 

@@ -1,5 +1,4 @@
 <?php session_start();
-if (isset($_SESSION["logueado"])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -424,8 +423,5 @@ function msg2($texto)
     echo "document.location.href='indexCliente.php';";
     echo "</script>";
 }
-}else {
-  $_SESSION["logueado"]=true;
-  header("Location: ../index.php");
-}
+
 ?>

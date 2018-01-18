@@ -45,7 +45,7 @@
 
                   <li><a><i class="fa fa-shopping-basket"></i> Ventas <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="ventas.php">Nuevo</a></li>
+                      
                       <li><a href="listaventas.php">Lista</a></li>
                     </ul>
                   </li>
