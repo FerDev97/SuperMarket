@@ -51,7 +51,7 @@
                   </li>
                 </ul>
               </div>
-              <div class="menu_section">
+              <!-- <div class="menu_section">
                 <h3>Para Usar Despues</h3>
                 <ul class="nav side-menu">
 
@@ -137,7 +137,7 @@
                   </li>
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
-              </div>
+              </div> -->
 
             </div>
             <!-- /sidebar menu -->

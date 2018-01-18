@@ -76,6 +76,7 @@ if ($result) {
             alert("Complete los campos");
           }else{
             document.getElementById('bandera').value="add";
+            
 
            document.super.submit();
           }
