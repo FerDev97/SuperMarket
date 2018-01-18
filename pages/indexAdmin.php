@@ -202,7 +202,7 @@ echo "Soy un Cliente o un Empleado.";
 }else {
   //session como invitado
   $_SESSION["usuario"]="invitado";
-  $_SESSION["tipousuario"]="cliente";
+  $_SESSION["tipousuario"]="invitado";
   // msg($_SESSION["usuario"]);
   // msg($_SESSION["tipoUsuario"]);
   echo "Soy un invitado.";
