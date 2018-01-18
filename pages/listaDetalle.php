@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php session_start();
+$idventa=$_REQUEST['id'];
+$user=$_REQUEST['user'];
+$fecha=$_REQUEST['fecha'];
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,9 +57,9 @@
         {
          document.location.href='kardex.php?id='+id;
         }
-        function ver(id,usuario,fecha)
+        function ver(id)
         {
-         document.location.href='listaDetalle.php?id='+id+'&user='+usuario+'&fecha='+fecha;
+         alert(id);
         }
         function confirmar(id,op)
         {
@@ -156,9 +160,8 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>Ventas<small>Listado de las ventas.</small></h3>
+                <h3>Detalle de la venta realizada a: <?php echo $user; ?></h3>
               </div>
-
             </div>
 
             <div class="clearfix"></div>
@@ -168,11 +171,10 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Ventas<small>Listado</small></h2>
+                    <h2>FECHA: <?php echo $fecha; ?></h2>
+                    
                   </br>
                 </br>
-                    <input type="button" class="btn btn-default" value="imprimir" onclick="llamarPagina()"/>
-                    <input type="button" class="btn btn-default" value="imprimir" onclick="llamarPagina1()"/>
 
                     <div class="clearfix"></div>
                   </div>
@@ -183,25 +185,36 @@
                     <table id="datatable" class="table table-striped table-bordered">
                       <thead>
                         <tr>
-                          <th>Fecha</th>
-                          <th>Usuario</th>
-                          <th>Ver</th>
+                          <th>Producto</th>
+                          <th>Cantidad</th>
+                          <th>Precio</th>
+                          <th>Subtotal</th>
                         </tr>
                       </thead>
                       <tbody>
                         <?php
                       include 'conexion.php';
-                      $result = $conexion->query("select * from ventas");
+                      $result = $conexion->query("select * from detalles where idventas=".$idventa);
                       if ($result) {
                         while ($fila = $result->fetch_object()) {
                           echo "<tr>";
-                          $venta=$fila->idventa;
-                          echo "<td>".$fila->fecha."</td>";
-                          echo "<td>".$fila->idusuario."</td>";
-                          echo "<td><button align='center' type='button' class='btn btn-default' onclick=ver(" . $venta . ",'".$fila->idusuario."','".$fila->fecha."');><i class='fa fa-search'></i>
-                             </button></td>";
+
+
+                          $result2 = $conexion->query("select * from productos where idproductos=".$fila->idproductos);
+                          if ($result2) {
+                            while ($fila2 = $result2->fetch_object()) {
+                              $nombreP=$fila2->nombreproductos;
+                            }
+                          }
+                          echo "<td>".$nombreP."</td>";
+                          echo "<td>".$fila->cantidad."</td>";
+                          echo "<td>".$fila->preciopd."</td>";
+                          $subtotal=$fila->cantidad*$fila->preciopd;
+                          echo "<td>".$subtotal."</td>";
+                          $total=$total+$subtotal;
                           echo "</tr>";
                            }
+                           echo "<tr class='danger'><td colspan='2' align='center'>TOTAL:</td><td colspan='2' align='center'>".$total."</td></tr>";
                       }
                        ?>
                       </tbody>
