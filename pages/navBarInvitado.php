@@ -4,13 +4,13 @@
       <a id="menu_toggle"><i class="fa fa-bars"></i></a>
     </div>
     <div class="nav toggle" id="carrito">
-    
+
     </div>
     <ul class="nav navbar-nav navbar-right">
 
       <li class="">
         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <img src="images/img.jpg" alt="">Invitado
+          <i class="fa fa-user"></i> Invitado
           <span class=" fa fa-angle-down"></span>
         </a>
         <ul class="dropdown-menu dropdown-usermenu pull-right">

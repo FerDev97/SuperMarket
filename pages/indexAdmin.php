@@ -77,11 +77,11 @@ include "conexion.php";
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <a href="../index.php" class="site_title"><i class="fa fa-user"></i></a>
               </div>
               <div class="profile_info">
-                <span>Bienvenido!</span>
-                <h2>Administrador</h2>
+                <span>Bienvenido ,</span>
+                <h2><?php echo $_SESSION['usuario']; ?></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
