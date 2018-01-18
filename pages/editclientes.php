@@ -76,7 +76,7 @@ if ($result) {
             alert("Complete los campos");
           }else{
             document.getElementById('bandera').value="add";
-            
+
 
            document.super.submit();
           }
@@ -389,8 +389,6 @@ if ($bandera == "add") {
         } else {
             msg("No Exito Usuario");
         }
-
-
         $consulta  = "UPDATE clientes set duiclientes='" . $duiCliente . "',nombreclientes='" . $nombreCliente . "',apellidoclientes='" . $apellidoCliente . "',direccionclientes='" . $direccionCliente . "',latitud='" . $latitud  . "',longitud='" . $longitud . "',telefonoclientes='" . $telefonoCliente . "',fotoclientes='" . $data . "',tipofotoc='" . $tipo . "',idusuario='" . $usuarioCliente . "' where idclientes='".$baccion."'";
         $resultado = $conexion->query($consulta);
         if ($resultado) {
@@ -398,12 +396,8 @@ if ($bandera == "add") {
         } else {
             msg("No Exito Cliente");
         }
-
-
     }
   }
-
-
 }
 function msg($texto)
 {
