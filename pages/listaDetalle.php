@@ -1,4 +1,6 @@
 <?php session_start();
+  # code...
+
 $idventa=$_REQUEST['id'];
 $user=$_REQUEST['user'];
 $fecha=$_REQUEST['fecha'];
@@ -172,7 +174,7 @@ $fecha=$_REQUEST['fecha'];
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>FECHA: <?php echo $fecha; ?></h2>
-                    
+
                   </br>
                 </br>
 
